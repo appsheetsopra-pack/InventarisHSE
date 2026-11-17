@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Simbol K3">
+<circle cx="50" cy="50" r="46" fill="#ffffff"/>
+<path fill="#178347" d="M44 5h12l3 10q7 2 12 5l10-5 8 9-5 10q4 6 5 11l10 4v12l-10 3q-2 7-5 12l5 10-8 9-10-5q-6 4-12 5l-3 10H44l-3-10q-7-2-12-5l-10 5-8-9 5-10q-4-6-5-12L1 61V49l10-4q2-7 5-11l-5-10 8-9 10 5q6-4 12-5z"/>
+<circle cx="50" cy="50" r="31" fill="#fff"/>
+<circle cx="50" cy="50" r="26" fill="#178347"/>
+<path d="M44 31h12v13h13v12H56v13H44V56H31V44h13z" fill="#fff"/>
+</svg>
