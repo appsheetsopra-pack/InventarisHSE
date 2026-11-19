@@ -3,532 +3,256 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#781725">
-<title>INVENTARIS HSE | APAR & P3K - PT Solusi Prima Packaging</title>
-<meta name="description" content="Portal Inventaris dan Inspeksi APAR serta P3K HSEGA 2026 PT Solusi Prima Packaging.">
+<title>INVENTARIS HSE | APAR & P3K | SOPRA</title>
 
 <style>
-:root {
-  --red: #a51f32;
-  --maroon: #781725;
-  --dark: #490e1b;
-  --light: #fff1f2;
-  --bg: #f7f5f6;
-  --white: #ffffff;
-  --text: #342b30;
-  --muted: #786b72;
-  --border: #eadde0;
-  --green: #168a46;
-  --yellow: #d59a14;
+:root{
+ --red:#a51f32;
+ --maroon:#781725;
+ --dark:#490e1b;
+ --bg:#f7f5f6;
+ --white:#fff;
+ --text:#342b30;
+ --muted:#786b72;
+ --border:#eadde0;
+ --green:#168a46;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  background: var(--bg);
-  color: var(--text);
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font:14px/1.5 "Segoe UI",Arial,sans-serif
 }
-
-button, input, select, textarea {
-  font: inherit;
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
+.app{
+ display:grid;
+ grid-template-columns:280px minmax(0,1fr);
+ min-height:100vh
 }
-
-button { cursor: pointer; }
-
-[hidden] { display: none !important; }
-
-.app {
-  display: grid;
-  grid-template-columns: 285px minmax(0, 1fr);
-  min-height: 100vh;
+.sidebar{
+ background:linear-gradient(160deg,#891a2b,#4b0e1a);
+ color:white;padding:24px 17px;
+ position:sticky;top:0;height:100vh
 }
-
-/* SIDEBAR */
-.sidebar {
-  background: linear-gradient(160deg, #891a2b, #4b0e1a);
-  color: white;
-  padding: 25px 17px;
-  position: sticky;
-  top: 0;
-  height: 100vh;
+.brand{display:flex;align-items:center;gap:12px}
+.logo-box{
+ width:62px;height:62px;flex-shrink:0;
+ background:#fff;border-radius:14px;
+ padding:6px;display:grid;place-items:center
 }
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.logo-box svg{width:100%;height:100%}
+.brand strong{display:block;font-size:17px;line-height:1.2}
+.brand span{display:block;color:#ffc8d0;font-weight:700}
+.brand small{font-size:10px;color:#f1d5da}
+.menu-label{
+ margin:36px 13px 15px;font-size:10px;
+ letter-spacing:2px;color:#e4b6c0
 }
-
-.logo-box {
-  width: 65px;
-  height: 65px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  background: white;
-  border-radius: 15px;
-  padding: 6px;
+.nav{
+ display:block;width:100%;padding:14px;
+ margin:6px 0;border:0;border-radius:11px;
+ background:transparent;text-align:left;
+ color:#f4e6e9;font-weight:700
 }
-
-.logo-box svg {
-  width: 100%;
-  height: 100%;
+.nav.active,.nav:hover{background:#ffffff27}
+.side-footer{
+ margin-top:35px;border:1px solid #af717a;
+ border-radius:12px;padding:13px;font-size:12px
 }
-
-.brand-info strong {
-  display: block;
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1.2;
+.main{
+ padding:25px 30px 45px;
+ min-width:0;max-width:1600px;width:100%;margin:auto
 }
-
-.brand-info span {
-  display: block;
-  color: #ffc8d0;
-  font-size: 12px;
-  font-weight: 700;
-  margin-top: 5px;
+.hero{
+ background:linear-gradient(110deg,#681322,#a52a3c);
+ color:#fff;border-radius:18px;padding:28px;margin-bottom:20px
 }
-
-.brand-info small {
-  display: block;
-  color: #f1d5da;
-  font-size: 10px;
-  margin-top: 3px;
+.hero small{letter-spacing:2px;color:#ffd5d8}
+.hero h1{margin:7px 0;font-size:28px}
+.hero p{margin:0;color:#ffe4e6}
+.notice{
+ background:#fff6df;border:1px solid #eadcaf;
+ color:#755c25;border-radius:11px;
+ padding:12px 15px;margin-bottom:18px
 }
-
-.menu-label {
-  color: #e4b6c0;
-  letter-spacing: 2px;
-  font-size: 10px;
-  margin: 45px 15px 17px;
+.panel{
+ background:#fff;border:1px solid var(--border);
+ border-radius:16px;padding:23px;margin-bottom:18px;
+ box-shadow:0 5px 20px #4b101e08
 }
-
-.nav {
-  display: block;
-  width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 6px;
-  background: transparent;
-  color: #f4e6e9;
-  border: 0;
-  border-radius: 12px;
-  text-align: left;
-  font-weight: 700;
+.panel h2,.panel h3{margin-top:0}
+.section-title{
+ font-weight:800;font-size:16px;color:var(--maroon);
+ padding-bottom:10px;border-bottom:1px solid var(--border);
+ margin:24px 0 16px
 }
-
-.nav:hover,
-.nav.active {
-  background: rgba(255,255,255,.17);
-  color: white;
+.grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:15px
 }
-
-.sidebar-footer {
-  position: absolute;
-  left: 17px;
-  right: 17px;
-  bottom: 25px;
-  border: 1px solid #af717a;
-  border-radius: 12px;
-  padding: 13px;
-  font-size: 12px;
-  color: #f4e3e5;
+.field{
+ display:flex;flex-direction:column;
+ gap:6px;font-size:13px;font-weight:650
 }
-
-/* CONTENT */
-.main {
-  padding: 25px 32px 50px;
-  min-width: 0;
-  max-width: 1600px;
-  width: 100%;
-  margin: auto;
+.field.full{grid-column:1/-1}
+.field input,.field select,.field textarea{
+ width:100%;min-width:0;padding:11px;
+ background:#fff;border:1px solid #d9cbd0;
+ border-radius:9px;color:var(--text)
 }
-
-.header {
-  background: linear-gradient(110deg, #681322, #a52a3c);
-  color: white;
-  border-radius: 20px;
-  padding: 30px;
-  margin-bottom: 22px;
-  position: relative;
-  overflow: hidden;
+.field textarea{resize:vertical}
+.btn{
+ padding:10px 14px;border-radius:9px;
+ border:1px solid var(--border);background:white;
+ color:var(--text);font-weight:700
 }
-
-.header::after {
-  content: "";
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border: 2px solid rgba(255,255,255,.12);
-  border-radius: 50%;
-  top: -110px;
-  right: -40px;
-  box-shadow:
-    0 0 0 35px rgba(255,255,255,.04),
-    0 0 0 70px rgba(255,255,255,.025);
+.btn.primary{
+ background:var(--red);border-color:var(--red);color:white
 }
-
-.header small {
-  letter-spacing: 2px;
-  color: #ffd5d8;
-  font-weight: 800;
+.btn.danger{color:#b52435;background:#fff0f0}
+.btn:hover{filter:brightness(.96)}
+.toolbar{
+ display:flex;flex-wrap:wrap;gap:9px;margin:16px 0
 }
-
-.header h1 {
-  margin: 9px 0 5px;
-  font-size: 30px;
+.cards{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:15px;margin-bottom:20px
 }
-
-.header p {
-  margin: 0;
-  color: #ffe4e6;
+.card{
+ background:#fff;border:1px solid var(--border);
+ border-top:4px solid var(--red);
+ border-radius:14px;padding:20px
 }
-
-.notice {
-  background: #fff6df;
-  border: 1px solid #eadcaf;
-  color: #755c25;
-  border-radius: 12px;
-  padding: 13px 16px;
-  margin-bottom: 20px;
+.card small{color:var(--muted)}
+.card strong{display:block;font-size:30px;margin-top:4px}
+.quick{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:14px
 }
-
-.panel {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  padding: 23px;
-  margin-bottom: 18px;
-  box-shadow: 0 5px 20px rgba(75,16,30,.035);
+.quick button{
+ padding:19px;text-align:left;background:white;
+ border:1px solid var(--border);border-radius:13px;
+ min-height:112px
 }
-
-.panel h2, .panel h3 { margin-top: 0; }
-
-.section-title {
-  font-weight: 800;
-  font-size: 16px;
-  color: var(--maroon);
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-  margin: 24px 0 16px;
+.quick button:hover{border-color:var(--red)}
+.quick b{display:block}
+.quick small{color:var(--muted)}
+.dashboard-grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:17px
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 16px;
+.donut-layout{
+ display:flex;align-items:center;gap:20px;flex-wrap:wrap
 }
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-weight: 650;
-  font-size: 13px;
+.donut{
+ width:170px;height:170px;border-radius:50%;
+ display:grid;place-items:center;background:#eee
 }
-
-.field.full { grid-column: 1 / -1; }
-
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  min-width: 0;
-  padding: 11px 12px;
-  border: 1px solid #d9cbd0;
-  border-radius: 10px;
-  background: white;
-  color: var(--text);
+.donut-inner{
+ width:105px;height:105px;background:#fff;
+ border-radius:50%;display:grid;place-items:center;
+ font-size:30px;font-weight:800
 }
-
-.field textarea { resize: vertical; }
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  outline: 2px solid #d68b96;
+.legend{flex:1;min-width:145px}
+.legend div{
+ display:flex;justify-content:space-between;
+ gap:10px;margin:10px 0
 }
-
-.btn {
-  padding: 10px 15px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: white;
-  color: var(--text);
-  font-weight: 700;
+.check{
+ padding:16px;background:#fffafa;
+ border:1px solid var(--border);
+ border-radius:12px;margin:11px 0
 }
-
-.btn.primary {
-  background: var(--red);
-  border-color: var(--red);
-  color: white;
+.check b{display:block;margin-bottom:10px}
+.options{display:flex;gap:21px;flex-wrap:wrap;margin-bottom:11px}
+.options label{display:flex;align-items:center;gap:6px}
+input[type=radio]{accent-color:var(--red)}
+.check input[type=text]{
+ width:100%;padding:10px;border:1px solid #d9cbd0;
+ border-radius:8px
 }
-
-.btn.danger {
-  color: #b52435;
-  background: #fff0f0;
+.documentation{
+ margin-top:20px;background:#fff7f8;
+ border:1px dashed #d896a0;
+ border-radius:12px;padding:18px
 }
-
-.btn:hover { filter: brightness(.96); }
-
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 16px 0;
+.documentation img{
+ display:block;max-width:230px;max-height:180px;
+ border-radius:9px;margin-top:10px
 }
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 15px;
-  margin-bottom: 20px;
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{
+ padding:10px;text-align:left;vertical-align:top;
+ border-bottom:1px solid var(--border)
 }
-
-.card {
-  padding: 20px;
-  border: 1px solid var(--border);
-  background: white;
-  border-radius: 15px;
-  border-top: 4px solid var(--red);
+th{background:#fcf5f6}
+.history-table th{white-space:nowrap}
+.history-table tbody tr:hover{background:#fff9fa}
+.history-table td{vertical-align:middle}
+.history-actions{white-space:nowrap}
+table input[type=number]{
+ width:85px;max-width:100%;
+ border:1px solid var(--border);
+ border-radius:7px;padding:7px
 }
-
-.card small { color: var(--muted); }
-
-.card strong {
-  display: block;
-  font-size: 31px;
-  margin-top: 5px;
+table input[type=text]{
+ min-width:130px;width:100%;
+ border:1px solid var(--border);
+ border-radius:7px;padding:7px
 }
-
-.quick {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 14px;
+.status{
+ display:inline-block;padding:4px 9px;
+ border-radius:20px;font-weight:700
 }
-
-.quick button {
-  text-align: left;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 15px;
-  padding: 20px;
-  min-height: 125px;
+.status.good{background:#e5f7e9;color:#147b3d}
+.status.bad{background:#ffe6e8;color:#af2536}
+.status.wait{background:#fff0cb;color:#906000}
+.muted{color:var(--muted)}
+.small-btn{
+ border:1px solid var(--border);background:#fff;
+ padding:7px 10px;border-radius:8px;margin:2px
 }
-
-.quick button:hover { border-color: var(--red); }
-
-.quick .symbol {
-  font-size: 28px;
-  color: var(--red);
-  display: block;
-  margin-bottom: 10px;
+.small-btn.danger{color:#b52435}
+.detail-info{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:10px;margin:16px 0
 }
-
-.quick b { display: block; }
-.quick small { color: var(--muted); }
-
-.check {
-  padding: 17px;
-  background: #fffafa;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  margin: 12px 0;
+.detail-info>div{
+ border:1px solid var(--border);
+ background:#fffafb;padding:12px;border-radius:9px
 }
-
-.check b { display: block; margin-bottom: 11px; }
-
-.options {
-  display: flex;
-  gap: 22px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
+.detail-info small{display:block;color:var(--muted)}
+.detail-info b{overflow-wrap:anywhere}
+.detail-note{
+ background:#fcf5f6;border-left:4px solid var(--red);
+ padding:14px;white-space:pre-wrap;border-radius:4px
 }
-
-.options label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
+.detail-photo{
+ max-width:100%;max-height:380px;
+ border-radius:9px;object-fit:contain
 }
-
-input[type="radio"],
-input[type="checkbox"] {
-  accent-color: var(--red);
+.footer{
+ text-align:center;color:var(--muted);
+ font-size:12px;margin-top:24px
 }
-
-.check input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d9cbd0;
-  border-radius: 9px;
+@media(max-width:1050px){
+ .app{grid-template-columns:1fr}
+ .sidebar{position:static;height:auto}
+ .sidebar nav{display:flex;overflow-x:auto;gap:5px}
+ .nav{white-space:nowrap;width:auto}
+ .menu-label,.side-footer{display:none}
+ .quick{grid-template-columns:repeat(2,1fr)}
 }
-
-.documentation {
-  margin-top: 22px;
-  background: #fff7f8;
-  padding: 19px;
-  border: 1px dashed #d896a0;
-  border-radius: 13px;
-}
-
-.documentation img {
-  max-width: 180px;
-  max-height: 140px;
-  display: block;
-  margin-top: 12px;
-  border-radius: 10px;
-}
-
-.table-wrap { overflow-x: auto; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-
-th, td {
-  padding: 11px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-
-th { background: #fcf5f6; }
-
-table input[type="number"] {
-  max-width: 95px;
-  padding: 8px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-
-.status {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 30px;
-  font-weight: 700;
-}
-
-.status.good {
-  background: #e5f7e9;
-  color: #147b3d;
-}
-
-.status.bad {
-  background: #ffe6e8;
-  color: #af2536;
-}
-
-.status.wait {
-  background: #fff0cb;
-  color: #906000;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.donut-layout {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 22px;
-}
-
-.donut {
-  width: 185px;
-  height: 185px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: #ececec;
-}
-
-.donut-inner {
-  background: white;
-  border-radius: 50%;
-  width: 117px;
-  height: 117px;
-  display: grid;
-  place-items: center;
-  font-size: 31px;
-  font-weight: 800;
-}
-
-.legend { flex: 1; min-width: 165px; }
-
-.legend div {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.muted { color: var(--muted); }
-
-.small-btn {
-  border: 1px solid var(--border);
-  background: white;
-  padding: 6px 9px;
-  margin: 2px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.small-btn.danger { color: #b52435; }
-
-.bar {
-  height: 10px;
-  background: #f0e8e9;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.bar-fill {
-  height: 100%;
-  background: var(--red);
-}
-
-.footer {
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 26px;
-}
-
-/* RESPONSIVE */
-@media(max-width:1050px) {
-  .app { grid-template-columns: 1fr; }
-  .sidebar { position: static; height: auto; }
-  .sidebar nav { display: flex; overflow-x: auto; gap: 5px; }
-  .nav { white-space: nowrap; width: auto; }
-  .menu-label, .sidebar-footer { display: none; }
-  .quick { grid-template-columns: repeat(2,1fr); }
-}
-
-@media(max-width:650px) {
-  .main { padding: 15px; }
-  .grid, .dashboard-grid { grid-template-columns: 1fr; }
-  .quick, .cards { grid-template-columns: repeat(2,1fr); }
-  .panel { padding: 16px; }
-  .header h1 { font-size: 24px; }
-  .field.full { grid-column: auto; }
-}
-
-@media print {
-  .sidebar, .toolbar, .notice, .quick,
-  .btn, .small-btn, .footer { display: none !important; }
-  .app { display: block; }
-  .main { padding: 0; }
-  .page:not(#dashboard) { display: none !important; }
+@media(max-width:650px){
+ .main{padding:15px}
+ .panel{padding:16px}
+ .grid,.dashboard-grid,.detail-info{grid-template-columns:1fr}
+ .quick,.cards{grid-template-columns:repeat(2,1fr)}
+ .hero h1{font-size:23px}
+ .field.full{grid-column:auto}
 }
 </style>
 </head>
@@ -538,1490 +262,1943 @@ table input[type="number"] {
 <div class="app">
 
 <aside class="sidebar">
-  <div class="brand">
 
-    <!-- LOGO K3 DENGAN 11 GERIGI -->
-    <div class="logo-box">
-      <svg viewBox="0 0 200 200"
-           xmlns="http://www.w3.org/2000/svg"
-           role="img"
-           aria-label="Logo K3 11 gerigi">
-        <g fill="#07843b">
-          <rect x="89" y="10" width="22" height="40"
-                rx="3"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(32.7273 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(65.4545 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(98.1818 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(130.9091 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(163.6364 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(196.3636 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(229.0909 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(261.8182 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(294.5455 100 100)"/>
-          <rect x="89" y="10" width="22" height="40"
-                rx="3" transform="rotate(327.2727 100 100)"/>
-          <circle cx="100" cy="100" r="69"/>
-        </g>
+<div class="brand">
 
-        <circle cx="100" cy="100" r="48" fill="white"/>
+ <div class="logo-box">
+  <!-- LOGO K3 11 GERIGI -->
+  <svg viewBox="0 0 200 200"
+       xmlns="http://www.w3.org/2000/svg"
+       aria-label="Logo K3 11 gerigi">
+   <g fill="#07843b">
+    <rect x="89" y="10" width="22" height="40" rx="3"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(32.7273 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(65.4545 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(98.1818 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(130.9091 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(163.6364 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(196.3636 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(229.0909 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(261.8182 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(294.5455 100 100)"/>
+    <rect x="89" y="10" width="22" height="40" rx="3"
+          transform="rotate(327.2727 100 100)"/>
+    <circle cx="100" cy="100" r="69"/>
+   </g>
+   <circle cx="100" cy="100" r="48" fill="white"/>
+   <path d="M90 72 H110 V90 H128 V110 H110 V128
+            H90 V110 H72 V90 H90 Z" fill="#07843b"/>
+  </svg>
+ </div>
 
-        <path d="M90 72 H110 V90 H128 V110
-                 H110 V128 H90 V110 H72 V90 H90 Z"
-              fill="#07843b"/>
-      </svg>
-    </div>
+ <div class="brand-info">
+  <strong>INVENTARIS HSE</strong>
+  <span>HSEGA 2026</span>
+  <small>PT Solusi Prima Packaging</small>
+ </div>
 
-    <div class="brand-info">
-      <strong>INVENTARIS HSE</strong>
-      <span>HSEGA 2026</span>
-      <small>PT Solusi Prima Packaging</small>
-    </div>
-  </div>
+</div>
 
-  <div class="menu-label">MENU UTAMA</div>
+<div class="menu-label">MENU UTAMA</div>
 
-  <nav>
-    <button class="nav active" data-page="home">
-      ⌂ &nbsp; Dashboard
-    </button>
-    <button class="nav" data-page="inventory">
-      ▤ &nbsp; Inventaris APAR & P3K
-    </button>
-    <button class="nav" data-page="apar">
-      ☑ &nbsp; Inspeksi APAR
-    </button>
-    <button class="nav" data-page="p3k">
-      ✚ &nbsp; Inspeksi P3K
-    </button>
-    <button class="nav" data-page="dashboard">
-      ◉ &nbsp; Riwayat & Ekspor
-    </button>
-  </nav>
+<nav>
+ <button class="nav active" data-page="home">
+  ⌂ &nbsp; Dashboard
+ </button>
+ <button class="nav" data-page="inventory">
+  ▤ &nbsp; Inventaris APAR & P3K
+ </button>
+ <button class="nav" data-page="apar">
+  ☑ &nbsp; Inspeksi APAR
+ </button>
+ <button class="nav" data-page="p3k">
+  ✚ &nbsp; Inspeksi P3K
+ </button>
+ <button class="nav" data-page="history">
+  ◉ &nbsp; Riwayat & Rekap
+ </button>
+</nav>
 
-  <div class="sidebar-footer">
-    <strong>SAFETY FIRST</strong>
-    <br>
-    Sistem inventaris dan inspeksi HSE
-  </div>
+<div class="side-footer">
+ <b>SAFETY FIRST</b>
+ <div>Sistem inventaris dan inspeksi HSE</div>
+</div>
+
 </aside>
 
 <main class="main">
 
-<header class="header">
-  <small>HSEGA 2026 / PT SOLUSI PRIMA PACKAGING</small>
-  <h1 id="page-title">Dashboard Inventaris HSE</h1>
-  <p id="page-desc">
-    Monitoring inventaris APAR & P3K serta hasil inspeksi.
-  </p>
+<header class="hero">
+ <small>HSEGA 2026 / PT SOLUSI PRIMA PACKAGING</small>
+ <h1 id="page-title">Dashboard Inventaris HSE</h1>
+ <p id="page-desc">
+  Monitoring inventaris APAR dan P3K serta hasil inspeksi.
+ </p>
 </header>
 
 <div class="notice">
-  <strong>Mode lokal:</strong>
-  Data hanya tersimpan di browser perangkat ini.
-  Belum tersinkron ke perangkat lain.
-  Lakukan backup secara berkala.
+ <b>Mode lokal:</b>
+ Data tersimpan di browser perangkat ini.
+ Belum tersinkron dengan perangkat lain.
+ Lakukan backup JSON secara berkala.
 </div>
 
-<!-- DASHBOARD UTAMA -->
+<!-- DASHBOARD -->
+
 <section class="page" id="home">
-  <div class="cards" id="home-metrics"></div>
 
-  <div class="dashboard-grid">
-    <div class="panel">
-      <h3>Status Aset</h3>
-      <div class="toolbar">
-        <button class="btn primary" id="status-apar">
-          APAR
-        </button>
-        <button class="btn" id="status-p3k">
-          P3K
-        </button>
-      </div>
-      <div class="donut-layout">
-        <div class="donut" id="asset-donut">
-          <div class="donut-inner" id="donut-total">0</div>
-        </div>
-        <div class="legend" id="status-legend"></div>
-      </div>
-    </div>
+ <div class="cards" id="home-metrics"></div>
 
-    <div class="panel">
-      <h3>Aktivitas Inspeksi Terbaru</h3>
-      <div id="recent-inspections">
-        <p class="muted">Belum ada inspeksi.</p>
-      </div>
+ <div class="dashboard-grid">
+
+  <div class="panel">
+   <h3>Status Aset</h3>
+
+   <div class="toolbar">
+    <button class="btn primary" id="status-apar">APAR</button>
+    <button class="btn" id="status-p3k">P3K</button>
+   </div>
+
+   <div class="donut-layout">
+    <div class="donut" id="asset-donut">
+     <div class="donut-inner" id="donut-total">0</div>
     </div>
+    <div class="legend" id="status-legend"></div>
+   </div>
   </div>
 
   <div class="panel">
-    <h3>Akses Cepat</h3>
-    <div class="quick">
-      <button data-go="inventory">
-        <span class="symbol">▤</span>
-        <b>Tambah Inventaris</b>
-        <small>APAR dan P3K</small>
-      </button>
-
-      <button data-go="apar">
-        <span class="symbol">☑</span>
-        <b>Form Inspeksi APAR</b>
-        <small>6 pemeriksaan</small>
-      </button>
-
-      <button data-go="p3k">
-        <span class="symbol">✚</span>
-        <b>Form Inspeksi P3K</b>
-        <small>18 item perlengkapan</small>
-      </button>
-
-      <button data-go="dashboard">
-        <span class="symbol">◉</span>
-        <b>Riwayat & Ekspor</b>
-        <small>CSV dan backup</small>
-      </button>
-    </div>
+   <h3>Aktivitas Inspeksi Terbaru</h3>
+   <div id="recent-inspections"></div>
   </div>
+
+ </div>
+
+ <div class="panel">
+  <h3>Akses Cepat</h3>
+  <div class="quick">
+
+   <button data-go="inventory">
+    <b>▤ Tambah Inventaris</b>
+    <small>APAR dan P3K</small>
+   </button>
+
+   <button data-go="apar">
+    <b>☑ Form Inspeksi APAR</b>
+    <small>6 pemeriksaan</small>
+   </button>
+
+   <button data-go="p3k">
+    <b>✚ Form Inspeksi P3K</b>
+    <small>5 kondisi dan 18 item</small>
+   </button>
+
+   <button data-go="history">
+    <b>◉ Riwayat & Rekap</b>
+    <small>Detail, PDF dan Excel</small>
+   </button>
+
+  </div>
+ </div>
+
 </section>
 
 <!-- INVENTARIS -->
+
 <section class="page" id="inventory" hidden>
-  <div class="panel">
-    <h2 id="inventory-heading">Tambah Inventaris</h2>
 
-    <form id="inventory-form">
-      <div class="grid">
+ <div class="panel">
+  <h2 id="inventory-heading">Tambah Inventaris</h2>
 
-        <label class="field">
-          Jenis Aset *
-          <select name="type" id="asset-type" required>
-            <option value="APAR">APAR</option>
-            <option value="P3K">P3K</option>
-          </select>
-        </label>
+  <form id="inventory-form">
 
-        <label class="field">
-          Kode Aset *
-          <input name="code" required
-                 placeholder="APAR-001 / P3K-001">
-        </label>
+   <div class="grid">
 
-        <label class="field">
-          Plant *
-          <select name="plant" required>
-            <option value="">Pilih Plant</option>
-            <option>Plant 1</option>
-            <option>Plant 3</option>
-            <option>Office</option>
-            <option>Warehouse</option>
-          </select>
-        </label>
+    <label class="field">
+     Jenis Aset *
+     <select name="type" id="asset-type" required>
+      <option value="APAR">APAR</option>
+      <option value="P3K">P3K</option>
+     </select>
+    </label>
 
-        <label class="field">
-          Lokasi *
-          <input name="location" required
-                 placeholder="Contoh: Area Printing">
-        </label>
+    <label class="field">
+     Kode Aset *
+     <input name="code" required
+            placeholder="APAR-001 / P3K-001">
+    </label>
 
-        <label class="field">
-          Departemen
-          <input name="department"
-                 placeholder="Contoh: Produksi">
-        </label>
+    <label class="field">
+     Plant *
+     <select name="plant" required>
+      <option value="">Pilih Plant</option>
+      <option>Plant 1</option>
+      <option>Plant 3</option>
+      <option>Office</option>
+      <option>Warehouse</option>
+     </select>
+    </label>
 
-        <label class="field">
-          Status *
-          <select name="status" required>
-            <option>Baik</option>
-            <option>Kadaluarsa</option>
-            <option>Sedang Direfill</option>
-          </select>
-        </label>
+    <label class="field">
+     Lokasi *
+     <input name="location" required
+            placeholder="Contoh: Area Printing">
+    </label>
 
-        <label class="field apar-only">
-          Jenis Media APAR
-          <select name="media">
-            <option value="">Pilih media</option>
-            <option>Dry Chemical Powder</option>
-            <option>CO2</option>
-            <option>Foam</option>
-            <option>Clean Agent</option>
-          </select>
-        </label>
+    <label class="field">
+     Departemen
+     <input name="department"
+            placeholder="Contoh: Produksi">
+    </label>
 
-        <label class="field apar-only">
-          Kapasitas APAR
-          <input name="capacity" placeholder="Contoh: 3 kg">
-        </label>
+    <label class="field">
+     Status *
+     <select name="status" required>
+      <option>Baik</option>
+      <option>Kadaluarsa</option>
+      <option>Sedang Direfill</option>
+     </select>
+    </label>
 
-        <label class="field p3k-only" hidden>
-          Tipe Kotak P3K
-          <select name="boxType">
-            <option value="">Pilih tipe</option>
-            <option value="A">Tipe A</option>
-            <option value="B">Tipe B</option>
-            <option value="C">Tipe C</option>
-          </select>
-        </label>
+    <label class="field apar-only">
+     Jenis Media APAR
+     <select name="media">
+      <option value="">Pilih Media</option>
+      <option>Dry Chemical Powder</option>
+      <option>CO2</option>
+      <option>Foam</option>
+      <option>Clean Agent</option>
+     </select>
+    </label>
 
-        <label class="field">
-          Tanggal Kedaluwarsa / Servis
-          <input type="date" name="expiry">
-        </label>
+    <label class="field apar-only">
+     Kapasitas APAR
+     <input name="capacity" placeholder="Contoh: 3 kg">
+    </label>
 
-        <label class="field full">
-          Catatan
-          <textarea name="notes" rows="3"></textarea>
-        </label>
+    <label class="field p3k-only" hidden>
+     Tipe Kotak P3K
+     <select name="boxType">
+      <option value="">Pilih Tipe</option>
+      <option value="A">Tipe A</option>
+      <option value="B">Tipe B</option>
+      <option value="C">Tipe C</option>
+     </select>
+    </label>
 
-      </div>
+    <label class="field">
+     Tanggal Kedaluwarsa / Servis
+     <input name="expiry" type="date">
+    </label>
 
-      <div class="toolbar">
-        <button class="btn primary" type="submit"
-                id="asset-save">
-          Simpan Inventaris
-        </button>
-        <button class="btn" type="button"
-                id="asset-cancel">
-          Batal / Bersihkan
-        </button>
-      </div>
+    <label class="field full">
+     Catatan
+     <textarea name="notes" rows="3"></textarea>
+    </label>
 
-      <p id="inventory-status" class="muted"></p>
-    </form>
+   </div>
+
+   <div class="toolbar">
+    <button type="submit" class="btn primary"
+            id="asset-save">
+     Simpan Inventaris
+    </button>
+
+    <button type="button" class="btn"
+            id="asset-cancel">
+     Batal / Bersihkan
+    </button>
+   </div>
+
+  </form>
+ </div>
+
+ <div class="panel">
+  <h3>Daftar Inventaris</h3>
+
+  <div class="toolbar">
+   <input id="inventory-search" class="btn"
+          placeholder="Cari kode atau lokasi">
+
+   <select id="inventory-filter" class="btn">
+    <option value="">Semua Aset</option>
+    <option>APAR</option>
+    <option>P3K</option>
+   </select>
   </div>
 
-  <div class="panel">
-    <h3>Daftar Inventaris</h3>
-
-    <div class="toolbar">
-      <input id="inventory-search"
-             placeholder="Cari kode atau lokasi..."
-             class="btn">
-
-      <select id="inventory-filter" class="btn">
-        <option value="">Semua Aset</option>
-        <option>APAR</option>
-        <option>P3K</option>
-      </select>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Kode</th>
-            <th>Jenis</th>
-            <th>Plant / Lokasi</th>
-            <th>Spesifikasi</th>
-            <th>Status</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="inventory-rows"></tbody>
-      </table>
-    </div>
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>Kode</th>
+      <th>Jenis</th>
+      <th>Plant / Lokasi</th>
+      <th>Spesifikasi</th>
+      <th>Status</th>
+      <th>Aksi</th>
+     </tr>
+    </thead>
+    <tbody id="inventory-rows"></tbody>
+   </table>
   </div>
+ </div>
+
 </section>
 
 <!-- INSPEKSI APAR -->
+
 <section class="page" id="apar" hidden>
-  <div class="panel">
-    <h2>Form Inspeksi APAR</h2>
 
-    <form id="apar-form">
+ <div class="panel">
+  <h2>Form Inspeksi APAR</h2>
 
-      <div class="section-title">
-        Identitas & Lokasi Pemeriksaan
-      </div>
+  <form id="apar-form">
 
-      <div class="grid">
-        <label class="field">
-          Nama Pemeriksa *
-          <input name="inspector" required>
-        </label>
+   <div class="section-title">
+    A. Identitas dan Lokasi Pemeriksaan
+   </div>
 
-        <label class="field">
-          Lokasi Inspeksi *
-          <input name="inspectionLocation"
-                 id="apar-location" required>
-        </label>
+   <div class="grid">
 
-        <label class="field">
-          Kode APAR *
-          <select name="assetId" id="apar-asset" required>
-            <option value="">Pilih APAR</option>
-          </select>
-        </label>
+    <label class="field">
+     Nama Pemeriksa *
+     <input name="inspector" required>
+    </label>
 
-        <label class="field">
-          Tanggal Inspeksi *
-          <input type="date" name="date" required>
-        </label>
-      </div>
+    <label class="field">
+     Lokasi Inspeksi *
+     <input name="inspectionLocation"
+            id="apar-location" required>
+    </label>
 
-      <div class="section-title">
-        Checklist Pemeriksaan APAR
-      </div>
+    <label class="field">
+     Kode APAR *
+     <select name="assetId" id="apar-asset" required>
+      <option value="">Pilih APAR</option>
+     </select>
+    </label>
 
-      <div id="apar-checks"></div>
+    <label class="field">
+     Tanggal Inspeksi *
+     <input name="date" type="date" required>
+    </label>
 
-      <label class="field">
-        Catatan / Tindak Lanjut
-        <textarea name="notes" rows="3"></textarea>
-      </label>
+   </div>
 
-      <div class="documentation">
-        <h3>Dokumentasi Inspeksi</h3>
-        <label class="field">
-          Foto Kondisi APAR
-          <input type="file" id="apar-photo"
-                 accept="image/jpeg,image/png,image/webp">
-        </label>
-        <img id="apar-preview" alt="Preview APAR" hidden>
-        <p class="muted">
-          Foto disimpan lokal, maksimal 500 KB.
-        </p>
-      </div>
+   <div class="section-title">
+    B. Checklist Pemeriksaan APAR
+   </div>
 
-      <div class="toolbar">
-        <button class="btn primary" type="submit">
-          Simpan Hasil Inspeksi
-        </button>
-        <button class="btn" type="reset">Bersihkan</button>
-      </div>
-    </form>
-  </div>
+   <div id="apar-checks"></div>
+
+   <label class="field">
+    Catatan / Tindak Lanjut
+    <textarea name="notes" rows="3"></textarea>
+   </label>
+
+   <div class="documentation">
+    <h3>Dokumentasi Inspeksi</h3>
+
+    <label class="field">
+     Foto Kondisi APAR
+     <input id="apar-photo" type="file"
+            accept="image/jpeg,image/png,image/webp">
+    </label>
+
+    <img id="apar-preview" alt="Foto APAR" hidden>
+
+    <p class="muted">
+     Maksimal 500 KB, JPG/PNG/WebP.
+    </p>
+   </div>
+
+   <div class="toolbar">
+    <button type="submit" class="btn primary">
+     Simpan Hasil Inspeksi
+    </button>
+    <button type="reset" class="btn">Bersihkan</button>
+   </div>
+
+  </form>
+ </div>
+
 </section>
 
 <!-- INSPEKSI P3K -->
+
 <section class="page" id="p3k" hidden>
-  <div class="panel">
-    <h2>Form Inspeksi P3K</h2>
 
-    <form id="p3k-form">
+ <div class="panel">
+  <h2>Form Inspeksi P3K</h2>
 
-      <div class="section-title">
-        Identitas & Lokasi Pemeriksaan
-      </div>
+  <form id="p3k-form">
 
-      <div class="grid">
-        <label class="field">
-          Nama Pemeriksa *
-          <input name="inspector" required>
-        </label>
+   <div class="section-title">
+    A. Identitas dan Lokasi Pemeriksaan
+   </div>
 
-        <label class="field">
-          Lokasi Inspeksi *
-          <input name="inspectionLocation"
-                 id="p3k-location" required>
-        </label>
+   <div class="grid">
 
-        <label class="field">
-          Kode Kotak P3K *
-          <select name="assetId" id="p3k-asset" required>
-            <option value="">Pilih P3K</option>
-          </select>
-        </label>
+    <label class="field">
+     Nama Pemeriksa *
+     <input name="inspector" required>
+    </label>
 
-        <label class="field">
-          Tanggal Inspeksi *
-          <input type="date" name="date" required>
-        </label>
+    <label class="field">
+     Lokasi Inspeksi *
+     <input name="inspectionLocation"
+            id="p3k-location" required>
+    </label>
 
-        <label class="field">
-          Tipe Kotak P3K *
-          <select name="inspectionBoxType"
-                  id="inspection-box-type" required>
-            <option value="">Pilih Tipe</option>
-            <option value="A">Tipe A</option>
-            <option value="B">Tipe B</option>
-            <option value="C">Tipe C</option>
-          </select>
-        </label>
-      </div>
+    <label class="field">
+     Kode Kotak P3K *
+     <select name="assetId" id="p3k-asset" required>
+      <option value="">Pilih P3K</option>
+     </select>
+    </label>
 
-      <div class="section-title">
-        Checklist Kondisi Kotak P3K
-      </div>
+    <label class="field">
+     Tanggal Inspeksi *
+     <input name="date" type="date" required>
+    </label>
 
-      <div id="p3k-checks"></div>
+    <label class="field">
+     Tipe Kotak P3K *
+     <select name="inspectionBoxType"
+             id="inspection-box-type" required>
+      <option value="">Pilih Tipe</option>
+      <option value="A">Tipe A</option>
+      <option value="B">Tipe B</option>
+      <option value="C">Tipe C</option>
+     </select>
+    </label>
 
-      <div class="section-title">
-        Kelengkapan Isi Kotak P3K
-      </div>
+   </div>
 
-      <p class="muted">
-        Jumlah standar akan mengikuti pilihan Tipe A, B,
-        atau C. Isi jumlah aktual saat pemeriksaan.
-      </p>
+   <div class="section-title">
+    B. Checklist Kondisi Kotak P3K
+   </div>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Perlengkapan</th>
-              <th>Standar</th>
-              <th>Aktual</th>
-              <th>Catatan</th>
-            </tr>
-          </thead>
-          <tbody id="p3k-items"></tbody>
-        </table>
-      </div>
+   <div id="p3k-checks"></div>
 
-      <div class="section-title">
-        Catatan & Rekomendasi
-      </div>
+   <div class="section-title">
+    C. Kelengkapan Isi Kotak P3K
+   </div>
 
-      <label class="field">
-        Catatan Tindak Lanjut
-        <textarea name="notes" rows="3"></textarea>
-      </label>
+   <p class="muted">
+    Jumlah standar mengikuti Tipe A, B, atau C.
+    Masukkan jumlah aktual setiap item.
+   </p>
 
-      <div class="documentation">
-        <h3>Dokumentasi Inspeksi</h3>
-        <label class="field">
-          Foto Kondisi Kotak P3K
-          <input type="file" id="p3k-photo"
-                 accept="image/jpeg,image/png,image/webp">
-        </label>
-        <img id="p3k-preview" alt="Preview P3K" hidden>
-        <p class="muted">
-          Foto disimpan lokal, maksimal 500 KB.
-        </p>
-      </div>
+   <div class="table-wrap">
+    <table>
+     <thead>
+      <tr>
+       <th>Perlengkapan</th>
+       <th>Standar</th>
+       <th>Aktual</th>
+       <th>Catatan</th>
+      </tr>
+     </thead>
+     <tbody id="p3k-items"></tbody>
+    </table>
+   </div>
 
-      <div class="toolbar">
-        <button class="btn primary" type="submit">
-          Simpan Hasil Inspeksi
-        </button>
-        <button class="btn" type="reset">Bersihkan</button>
-      </div>
-    </form>
-  </div>
+   <div class="section-title">
+    D. Catatan dan Rekomendasi
+   </div>
+
+   <label class="field">
+    Catatan Tindak Lanjut
+    <textarea name="notes" rows="3"></textarea>
+   </label>
+
+   <div class="documentation">
+    <h3>Dokumentasi Inspeksi</h3>
+
+    <label class="field">
+     Foto Kondisi Kotak P3K
+     <input id="p3k-photo" type="file"
+            accept="image/jpeg,image/png,image/webp">
+    </label>
+
+    <img id="p3k-preview" alt="Foto P3K" hidden>
+
+    <p class="muted">
+     Maksimal 500 KB, JPG/PNG/WebP.
+    </p>
+   </div>
+
+   <div class="toolbar">
+    <button type="submit" class="btn primary">
+     Simpan Hasil Inspeksi
+    </button>
+    <button type="reset" class="btn">Bersihkan</button>
+   </div>
+
+  </form>
+ </div>
+
 </section>
 
-<!-- RIWAYAT DAN EKSPOR -->
-<section class="page" id="dashboard" hidden>
+<!-- RIWAYAT DAN REKAP -->
+
+<section class="page" id="history" hidden>
+
+ <div id="history-list-view">
+
   <div class="panel">
-    <h2>Riwayat Inspeksi & Pengelolaan Data</h2>
+   <h2>Riwayat Inspeksi APAR & P3K</h2>
 
-    <div class="toolbar">
-      <button class="btn primary" id="export-csv">
-        ↓ Ekspor CSV (Excel)
-      </button>
-      <button class="btn" id="export-json">
-        ↓ Backup JSON
-      </button>
-      <button class="btn" id="import-json">
-        ↑ Impor Backup
-      </button>
-      <input type="file" id="import-file"
-             accept=".json" hidden>
-      <button class="btn" id="print-dashboard">
-        Cetak / PDF
-      </button>
-    </div>
+   <p class="muted">
+    Seluruh pemeriksaan ditampilkan dalam tabel ringkas.
+    Klik Lihat Detail untuk melihat seluruh jawaban
+    dan mencetak laporan PDF.
+   </p>
 
-    <div class="cards" id="dash-metrics"></div>
+   <div class="toolbar">
+
+    <button class="btn primary" id="export-csv">
+     Download Rekap Inspeksi (Excel/CSV)
+    </button>
+
+    <button class="btn" id="export-json">
+     Backup JSON
+    </button>
+
+    <button class="btn" id="import-json">
+     Impor Backup
+    </button>
+
+    <input type="file" id="import-file"
+           accept=".json,application/json" hidden>
+
+   </div>
   </div>
 
   <div class="panel">
-    <h3>Riwayat Inspeksi</h3>
+   <h3>Daftar Hasil Inspeksi</h3>
 
-    <div class="toolbar">
-      <select id="inspection-filter" class="btn">
-        <option value="">Semua Inspeksi</option>
-        <option>APAR</option>
-        <option>P3K</option>
-      </select>
-    </div>
+   <div class="toolbar">
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Tanggal</th>
-            <th>Jenis</th>
-            <th>Kode Aset</th>
-            <th>Lokasi</th>
-            <th>Pemeriksa</th>
-            <th>Temuan</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="inspection-rows"></tbody>
-      </table>
-    </div>
+    <select class="btn" id="inspection-filter">
+     <option value="">Semua Inspeksi</option>
+     <option>APAR</option>
+     <option>P3K</option>
+    </select>
+
+    <input class="btn" id="inspection-search"
+           placeholder="Cari kode, lokasi, pemeriksa">
+
+   </div>
+
+   <p class="muted" id="inspection-count"></p>
+
+   <div class="table-wrap">
+    <table class="history-table">
+     <thead>
+      <tr>
+       <th>No.</th>
+       <th>Tanggal</th>
+       <th>Jenis</th>
+       <th>Kode Aset</th>
+       <th>Plant</th>
+       <th>Lokasi</th>
+       <th>Pemeriksa</th>
+       <th>Aksi</th>
+      </tr>
+     </thead>
+
+     <tbody id="inspection-rows"></tbody>
+    </table>
+   </div>
   </div>
+
+ </div>
+
+ <!-- DETAIL INSPEKSI -->
+
+ <div id="history-detail-view" hidden>
+
+  <div class="panel">
+
+   <div class="toolbar">
+    <button class="btn" id="back-to-history">
+     ← Kembali ke Rekap
+    </button>
+
+    <button class="btn primary" id="print-detail">
+     Cetak / Simpan PDF
+    </button>
+   </div>
+
+   <div id="inspection-detail"></div>
+
+  </div>
+
+ </div>
+
 </section>
 
-<div class="footer">
-  © 2026 HSEGA - PT Solusi Prima Packaging
-</div>
+<footer class="footer">
+ © 2026 HSEGA - PT Solusi Prima Packaging
+</footer>
 
 </main>
 </div>
 
 <script>
 (() => {
-  "use strict";
+"use strict";
 
-  const STORE = "sopra_apar_p3k_v1";
-  const $ = id => document.getElementById(id);
+/* ==========================================
+   KONFIGURASI DATABASE
+========================================== */
 
-  const APAR = [
-    ["A01", "Segitiga / rambu APAR tersedia dan terlihat jelas"],
-    ["A02", "Kartu checklist inspeksi APAR tersedia"],
-    ["A03", "Selang dan nozzle dalam kondisi baik"],
-    ["A04", "Tekanan APAR berada di zona normal"],
-    ["A05", "Bracket / dudukan APAR tersedia dan baik"],
-    ["A06", "Pin pengaman tidak longgar dan segel utuh"]
-  ];
+const STORE="sopra_apar_p3k_v1";
+const $=id=>document.getElementById(id);
 
-  const P3K = [
-    ["P01", "Kotak P3K tersedia dan mudah diakses"],
-    ["P02", "Kotak dalam kondisi baik dan bersih"],
-    ["P03", "Tanda P3K terlihat jelas"],
-    ["P04", "Perlengkapan tersusun rapi"],
-    ["P05", "Tidak ada perlengkapan rusak atau kedaluwarsa"]
-  ];
+let db={assets:[],inspections:[]};
+let editId=null;
+let statusType="APAR";
+let selectedId=null;
 
-  const ITEMS = [
-    ["Kasa Steril terbungkus",20,40,40],
-    ["Perban",2,4,6],
-    ["Plester",2,4,6],
-    ["Plester cepat",10,15,20],
-    ["Kapas (25 gram)",1,2,3],
-    ["Kain Mitella",2,4,6],
-    ["Gunting",1,1,1],
-    ["Peniti",12,12,12],
-    ["Sarung tangan sekali pakai",2,3,4],
-    ["Masker",2,4,6],
-    ["Pinset",1,1,1],
-    ["Lampu senter",1,1,1],
-    ["Gelas untuk cuci tangan",1,1,1],
-    ["Kantong Plastik bersih",1,2,3],
-    ["Aquades",1,1,1],
-    ["Povidon iodin (60 ml)",1,1,1],
-    ["Alkohol 70%",1,1,1],
-    ["Buku panduan P3K",1,1,1]
-  ];
+const photos={APAR:"",P3K:""};
 
-  const esc = value => String(value ?? "").replace(
-    /[&<>"']/g,
-    c => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[c])
+/* ==========================================
+   PERTANYAAN APAR
+========================================== */
+
+const APAR=[
+ ["A01","Segitiga / rambu APAR tersedia dan terlihat jelas"],
+ ["A02","Kartu checklist inspeksi APAR tersedia"],
+ ["A03","Selang dan nozzle dalam kondisi baik"],
+ ["A04","Tekanan APAR berada di zona normal"],
+ ["A05","Bracket / dudukan APAR tersedia dan baik"],
+ ["A06","Pin pengaman tidak longgar dan segel utuh"]
+];
+
+/* ==========================================
+   PERTANYAAN P3K
+========================================== */
+
+const P3K=[
+ ["P01","Kotak P3K tersedia dan mudah diakses"],
+ ["P02","Kotak dalam kondisi baik dan bersih"],
+ ["P03","Tanda P3K terlihat jelas"],
+ ["P04","Perlengkapan tersusun rapi"],
+ ["P05","Tidak ada perlengkapan rusak atau kedaluwarsa"]
+];
+
+/* ==========================================
+   STANDAR PERLENGKAPAN P3K
+   NAMA, TIPE A, B, C
+========================================== */
+
+const ITEMS=[
+ ["Kasa Steril terbungkus",20,40,40],
+ ["Perban",2,4,6],
+ ["Plester",2,4,6],
+ ["Plester cepat",10,15,20],
+ ["Kapas (25 gram)",1,2,3],
+ ["Kain Mitella",2,4,6],
+ ["Gunting",1,1,1],
+ ["Peniti",12,12,12],
+ ["Sarung tangan sekali pakai",2,3,4],
+ ["Masker",2,4,6],
+ ["Pinset",1,1,1],
+ ["Lampu senter",1,1,1],
+ ["Gelas untuk cuci tangan",1,1,1],
+ ["Kantong Plastik bersih",1,2,3],
+ ["Aquades",1,1,1],
+ ["Povidon iodin (60 ml)",1,1,1],
+ ["Alkohol 70%",1,1,1],
+ ["Buku panduan P3K",1,1,1]
+];
+
+/* ==========================================
+   FUNGSI DASAR
+========================================== */
+
+function esc(v){
+ return String(v??"").replace(
+  /[&<>"']/g,
+  c=>({
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#39;"
+  }[c])
+ );
+}
+
+function uid(){
+ return typeof crypto!=="undefined"&&
+  typeof crypto.randomUUID==="function"
+  ?crypto.randomUUID()
+  :"ID-"+Date.now()+"-"+Math.random().toString(36).slice(2);
+}
+
+function today(){
+ const d=new Date();
+ return new Date(
+  d.getTime()-d.getTimezoneOffset()*60000
+ ).toISOString().slice(0,10);
+}
+
+function values(form){
+ return Object.fromEntries(
+  new FormData(form).entries()
+ );
+}
+
+function clone(v){
+ return JSON.parse(JSON.stringify(v));
+}
+
+function safePhoto(v){
+ return typeof v==="string" &&
+ /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(v)
+ ?v:"";
+}
+
+function load(){
+ try{
+  const x=JSON.parse(localStorage.getItem(STORE)||"{}");
+  db={
+   assets:Array.isArray(x.assets)?x.assets:[],
+   inspections:Array.isArray(x.inspections)?x.inspections:[]
+  };
+ }catch{
+  db={assets:[],inspections:[]};
+ }
+}
+
+function save(next){
+ try{
+  localStorage.setItem(STORE,JSON.stringify(next));
+  db=next;
+  return true;
+ }catch(e){
+  alert("Gagal menyimpan: "+e.message);
+  return false;
+ }
+}
+
+function assetBy(id){
+ return db.assets.find(x=>x.id===id);
+}
+
+function inspectionBy(id){
+ return db.inspections.find(x=>x.id===id);
+}
+
+/* ==========================================
+   NAVIGASI
+========================================== */
+
+const TITLES={
+ home:[
+  "Dashboard Inventaris HSE",
+  "Monitoring aset APAR dan P3K serta hasil inspeksi."
+ ],
+ inventory:[
+  "Inventaris APAR & P3K",
+  "Pendataan aset, lokasi, spesifikasi, dan status."
+ ],
+ apar:[
+  "Inspeksi APAR",
+  "Pemeriksaan kondisi dan kelengkapan APAR."
+ ],
+ p3k:[
+  "Inspeksi P3K",
+  "Pemeriksaan kotak dan perlengkapan P3K."
+ ],
+ history:[
+  "Riwayat & Rekap Inspeksi",
+  "Lihat detail, cetak PDF, dan download Excel."
+ ]
+};
+
+function go(page){
+ document.querySelectorAll(".page").forEach(el=>{
+  el.hidden=el.id!==page;
+ });
+
+ document.querySelectorAll(".nav").forEach(el=>{
+  el.classList.toggle(
+   "active",el.dataset.page===page
   );
+ });
+
+ $("page-title").textContent=TITLES[page][0];
+ $("page-desc").textContent=TITLES[page][1];
 
-  const uid = () =>
-    crypto.randomUUID
-      ? crypto.randomUUID()
-      : "ID-" + Date.now() + "-" +
-        Math.random().toString(36).slice(2);
-
-  const today = () => {
-    const d = new Date();
-    return new Date(
-      d.getTime() - d.getTimezoneOffset() * 60000
-    ).toISOString().slice(0,10);
-  };
-
-  let db = { assets: [], inspections: [] };
-  let editId = null;
-  let statusType = "APAR";
-  const photos = { APAR: "", P3K: "" };
-
-  function load() {
-    try {
-      const value = JSON.parse(
-        localStorage.getItem(STORE) || "{}"
-      );
-      db = {
-        assets: Array.isArray(value.assets)
-          ? value.assets : [],
-        inspections: Array.isArray(value.inspections)
-          ? value.inspections : []
-      };
-    } catch {
-      db = { assets: [], inspections: [] };
-    }
-  }
-
-  function save() {
-    try {
-      localStorage.setItem(STORE, JSON.stringify(db));
-      return true;
-    } catch (error) {
-      alert(
-        "Gagal menyimpan. Memori browser mungkin penuh. " +
-        error.message
-      );
-      return false;
-    }
-  }
-
-  function go(page) {
-    document.querySelectorAll(".page").forEach(el => {
-      el.hidden = el.id !== page;
-    });
-
-    document.querySelectorAll(".nav").forEach(el => {
-      el.classList.toggle(
-        "active",
-        el.dataset.page === page
-      );
-    });
-
-    const titles = {
-      home: ["Dashboard Inventaris HSE",
-        "Monitoring aset APAR dan P3K serta hasil inspeksi."],
-      inventory: ["Inventaris APAR & P3K",
-        "Pendataan aset, lokasi, spesifikasi, dan status."],
-      apar: ["Inspeksi APAR",
-        "Pemeriksaan kondisi dan kelengkapan APAR."],
-      p3k: ["Inspeksi P3K",
-        "Pemeriksaan kondisi kotak dan perlengkapan P3K."],
-      dashboard: ["Riwayat & Ekspor Data",
-        "Monitoring hasil inspeksi dan pengelolaan data."]
-    };
-
-    const info = titles[page];
-
-    $("page-title").textContent = info[0];
-    $("page-desc").textContent = info[1];
-
-    render();
-
-    window.scrollTo(0,0);
-  }
-
-  document.querySelectorAll("[data-page]").forEach(el => {
-    el.onclick = () => go(el.dataset.page);
-  });
-
-  document.querySelectorAll("[data-go]").forEach(el => {
-    el.onclick = () => go(el.dataset.go);
-  });
-
-  function assetBy(id) {
-    return db.assets.find(a => a.id === id);
-  }
-
-  function syncType() {
-    const p3k = $("asset-type").value === "P3K";
-
-    document.querySelectorAll(".apar-only")
-      .forEach(el => el.hidden = p3k);
-
-    document.querySelectorAll(".p3k-only")
-      .forEach(el => el.hidden = !p3k);
-  }
-
-  $("asset-type").onchange = syncType;
-
-  function resetInventory() {
-    editId = null;
-    $("inventory-form").reset();
-    $("inventory-heading").textContent =
-      "Tambah Inventaris";
-    $("asset-save").textContent = "Simpan Inventaris";
-    syncType();
-  }
-
-  $("asset-cancel").onclick = resetInventory;
-
-  $("inventory-form").onsubmit = event => {
-    event.preventDefault();
-
-    const values = Object.fromEntries(
-      new FormData(event.currentTarget).entries()
-    );
-
-    const code = String(values.code || "").trim();
-
-    if (!code) return;
-
-    if (db.assets.some(a =>
-      a.code.toLowerCase() === code.toLowerCase() &&
-      a.id !== editId
-    )) {
-      alert("Kode aset sudah terdaftar.");
-      return;
-    }
-
-    const old = editId ? assetBy(editId) : null;
-
-    const record = {
-      ...values,
-      code,
-      id: editId || uid(),
-      createdAt: old?.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-
-    const previous = structuredClone(db);
-
-    if (editId) {
-      db.assets = db.assets.map(a =>
-        a.id === editId ? record : a
-      );
-    } else {
-      db.assets.unshift(record);
-    }
-
-    if (save()) {
-      resetInventory();
-      render();
-      alert("Inventaris berhasil disimpan di browser.");
-    } else {
-      db = previous;
-    }
-  };
-
-  function renderInventory() {
-    const query = $("inventory-search")
-      .value.toLowerCase().trim();
-
-    const type = $("inventory-filter").value;
-
-    const rows = db.assets.filter(a =>
-      (!type || a.type === type) &&
-      [a.code, a.plant, a.location, a.department]
-        .join(" ").toLowerCase().includes(query)
-    );
-
-    $("inventory-rows").innerHTML = rows.map(a => {
-      const badge = a.status === "Baik"
-        ? "good"
-        : a.status === "Kadaluarsa" ? "bad" : "wait";
-
-      return `
-        <tr>
-          <td><b>${esc(a.code)}</b></td>
-          <td>${esc(a.type)}</td>
-          <td>${esc(a.plant)} / ${esc(a.location)}</td>
-          <td>${esc(a.type === "APAR"
-            ? [a.media,a.capacity].filter(Boolean).join(" / ")
-            : "Tipe " + (a.boxType || "—"))}</td>
-          <td>
-            <span class="status ${badge}">
-              ${esc(a.status)}
-            </span>
-          </td>
-          <td>
-            <button class="small-btn"
-              data-edit="${esc(a.id)}">Edit</button>
-            <button class="small-btn danger"
-              data-delete="${esc(a.id)}">Hapus</button>
-          </td>
-        </tr>
-      `;
-    }).join("") ||
-      '<tr><td colspan="6">Belum ada inventaris.</td></tr>';
-
-    document.querySelectorAll("[data-edit]")
-      .forEach(btn => {
-        btn.onclick = () => editInventory(btn.dataset.edit);
-      });
-
-    document.querySelectorAll("[data-delete]")
-      .forEach(btn => {
-        btn.onclick = () => deleteInventory(btn.dataset.delete);
-      });
-  }
-
-  function editInventory(id) {
-    const a = assetBy(id);
-    if (!a) return;
-
-    editId = id;
-
-    const form = $("inventory-form");
-
-    Object.entries(a).forEach(([name,value]) => {
-      const field = form.elements.namedItem(name);
-
-      if (field && typeof value === "string") {
-        field.value = value;
-      }
-    });
-
-    $("inventory-heading").textContent =
-      "Edit Inventaris - " + a.code;
-
-    $("asset-save").textContent = "Simpan Perubahan";
-
-    syncType();
-    go("inventory");
-  }
-
-  function deleteInventory(id) {
-    if (!confirm("Hapus inventaris ini?")) return;
-
-    const old = structuredClone(db);
-    db.assets = db.assets.filter(a => a.id !== id);
-
-    if (save()) render();
-    else db = old;
-  }
-
-  $("inventory-search").oninput = renderInventory;
-  $("inventory-filter").onchange = renderInventory;
-
-  function refreshAssetSelects() {
-    [
-      ["apar-asset", "APAR"],
-      ["p3k-asset", "P3K"]
-    ].forEach(([id,type]) => {
-      const select = $(id);
-      const old = select.value;
-
-      select.innerHTML =
-        '<option value="">Pilih aset</option>' +
-        db.assets
-          .filter(a => a.type === type)
-          .map(a => `
-            <option value="${esc(a.id)}">
-              ${esc(a.code)} - ${esc(a.location)}
-            </option>
-          `).join("");
-
-      if ([...select.options].some(o => o.value === old)) {
-        select.value = old;
-      }
-    });
-  }
-
-  function buildChecks(type) {
-    const questions = type === "APAR" ? APAR : P3K;
-    const prefix = type.toLowerCase();
-
-    $(prefix + "-checks").innerHTML =
-      questions.map(([code,question],i) => `
-        <div class="check">
-          <b>${code} - ${esc(question)} *</b>
-
-          <div class="options">
-            ${["Ya","Tidak","N/A"].map(value => `
-              <label>
-                <input type="radio"
-                       name="check_${i}"
-                       value="${value}"
-                       required>
-                ${value}
-              </label>
-            `).join("")}
-          </div>
-
-          <input type="text"
-                 name="note_${i}"
-                 maxlength="400"
-                 placeholder="Keterangan (wajib jika Tidak)">
-        </div>
-      `).join("");
-  }
-
-  function buildItems() {
-    $("p3k-items").innerHTML =
-      ITEMS.map(([name],i) => `
-        <tr>
-          <td>${i+1}. ${esc(name)}</td>
-          <td id="target-${i}">—</td>
-          <td>
-            <input type="number"
-                   name="actual_${i}"
-                   min="0"
-                   step="1"
-                   required
-                   placeholder="Jumlah">
-          </td>
-          <td>
-            <input type="text"
-                   name="itemnote_${i}"
-                   placeholder="Keterangan"
-                   style="width:170px;padding:8px">
-          </td>
-        </tr>
-      `).join("");
-  }
-
-  function updateTargets() {
-    const type = $("inspection-box-type").value;
-
-    const index = { A:1, B:2, C:3 }[type];
-
-    ITEMS.forEach((item,i) => {
-      $("target-" + i).textContent = index
-        ? item[index]
-        : "—";
-    });
-  }
-
-  $("inspection-box-type").onchange = updateTargets;
-
-  function setLocation(type) {
-    const prefix = type.toLowerCase();
-    const a = assetBy($(prefix + "-asset").value);
-
-    $(prefix + "-location").value =
-      a ? a.plant + " - " + a.location : "";
-
-    if (type === "P3K") {
-      $("inspection-box-type").value = a?.boxType || "";
-      updateTargets();
-    }
-  }
-
-  $("apar-asset").onchange = () => setLocation("APAR");
-  $("p3k-asset").onchange = () => setLocation("P3K");
-
-  function setupPhoto(type) {
-    const prefix = type.toLowerCase();
-
-    $(prefix + "-photo").onchange = async event => {
-      const file = event.target.files?.[0];
-      photos[type] = "";
-
-      const img = $(prefix + "-preview");
-      img.hidden = true;
-
-      if (!file) return;
-
-      if (
-        !["image/jpeg","image/png","image/webp"]
-          .includes(file.type) ||
-        file.size > 500 * 1024
-      ) {
-        alert("Foto harus JPG/PNG/WebP dan maksimal 500 KB.");
-        event.target.value = "";
-        return;
-      }
-
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        photos[type] = reader.result;
-        img.src = reader.result;
-        img.hidden = false;
-      };
-
-      reader.readAsDataURL(file);
-    };
-  }
-
-  function saveInspection(type,form) {
-    const values = Object.fromEntries(
-      new FormData(form).entries()
-    );
-
-    const questions = type === "APAR" ? APAR : P3K;
-
-    const checks = questions.map(([code,question],i) => ({
-      code,
-      question,
-      result: values["check_" + i],
-      note: (values["note_" + i] || "").trim()
-    }));
-
-    if (checks.some(c =>
-      c.result === "Tidak" && !c.note
-    )) {
-      alert("Jawaban Tidak wajib disertai keterangan.");
-      return;
-    }
-
-    const asset = assetBy(values.assetId);
-
-    if (!asset) {
-      alert("Pilih aset yang terdaftar.");
-      return;
-    }
-
-    const index = {
-      A:1, B:2, C:3
-    }[values.inspectionBoxType];
-
-    const items = type === "P3K"
-      ? ITEMS.map(([name,...counts],i) => ({
-          name,
-          target: index ? counts[index - 1] : null,
-          actual: Number(values["actual_" + i]),
-          note: values["itemnote_" + i] || ""
-        }))
-      : [];
-
-    const shortages = items.filter(i =>
-      i.target !== null && i.actual < i.target
-    ).length;
-
-    const record = {
-      id: uid(),
-      type,
-      assetId: asset.id,
-      assetCode: asset.code,
-      plant: asset.plant,
-      location: values.inspectionLocation,
-      inspector: values.inspector,
-      date: values.date,
-      boxType: values.inspectionBoxType || "",
-      notes: values.notes || "",
-      checks,
-      items,
-      findings:
-        checks.filter(c => c.result === "Tidak").length +
-        shortages,
-      photo: photos[type],
-      createdAt: new Date().toISOString()
-    };
-
-    const old = structuredClone(db);
-
-    db.inspections.unshift(record);
-
-    if (save()) {
-      form.reset();
-      photos[type] = "";
-      $(type.toLowerCase() + "-preview").hidden = true;
-
-      form.querySelector('[type="date"]').value = today();
-
-      render();
-      go("dashboard");
-
-      alert(
-        "Inspeksi berhasil disimpan di browser ini. " +
-        "Belum tersinkron antarperangkat."
-      );
-    } else {
-      db = old;
-    }
-  }
-
-  ["APAR","P3K"].forEach(type => {
-    buildChecks(type);
-    setupPhoto(type);
-
-    const form = $(type.toLowerCase() + "-form");
-
-    form.querySelector('[type="date"]').value = today();
-
-    form.addEventListener("change", () => {
-      const questions = type === "APAR" ? APAR : P3K;
-
-      questions.forEach((_,i) => {
-        const checked = form.querySelector(
-          `input[name="check_${i}"]:checked`
-        );
-
-        const note = form.elements.namedItem("note_" + i);
-
-        note.required =
-          Boolean(checked && checked.value === "Tidak");
-      });
-    });
-
-    form.onsubmit = event => {
-      event.preventDefault();
-
-      if (form.reportValidity()) {
-        saveInspection(type,form);
-      }
-    };
-  });
-
-  buildItems();
-
-  function renderMetrics() {
-    const assets = db.assets;
-    const inspections = db.inspections;
-
-    const metrics = [
-      ["Total APAR",
-        assets.filter(a => a.type === "APAR").length],
-      ["Total P3K",
-        assets.filter(a => a.type === "P3K").length],
-      ["Jumlah Inspeksi", inspections.length],
-      ["Total Temuan",
-        inspections.reduce((sum,i) =>
-          sum + (i.findings || 0),0)]
-    ];
-
-    const html = metrics.map(([label,value]) => `
-      <div class="card">
-        <small>${label}</small>
-        <strong>${value}</strong>
-      </div>
+ if(page==="history")showList(false);
+
+ render();
+
+ window.scrollTo(0,0);
+}
+
+document.querySelectorAll("[data-page]").forEach(el=>{
+ el.onclick=()=>go(el.dataset.page);
+});
+
+document.querySelectorAll("[data-go]").forEach(el=>{
+ el.onclick=()=>go(el.dataset.go);
+});
+
+/* ==========================================
+   FORM INVENTARIS
+========================================== */
+
+function syncType(){
+ const p3k=$("asset-type").value==="P3K";
+
+ document.querySelectorAll(".apar-only")
+  .forEach(el=>el.hidden=p3k);
+
+ document.querySelectorAll(".p3k-only")
+  .forEach(el=>el.hidden=!p3k);
+}
+
+$("asset-type").onchange=syncType;
+
+function resetInventory(){
+ editId=null;
+ $("inventory-form").reset();
+ $("inventory-heading").textContent="Tambah Inventaris";
+ $("asset-save").textContent="Simpan Inventaris";
+ syncType();
+}
+
+$("asset-cancel").onclick=resetInventory;
+
+$("inventory-form").onsubmit=e=>{
+ e.preventDefault();
+
+ const x=values(e.currentTarget);
+ const code=String(x.code||"").trim();
+
+ if(!code){
+  alert("Kode aset wajib diisi.");
+  return;
+ }
+
+ if(db.assets.some(a=>
+  String(a.code).toLowerCase()===code.toLowerCase() &&
+  a.id!==editId
+ )){
+  alert("Kode aset sudah terdaftar.");
+  return;
+ }
+
+ const old=editId?assetBy(editId):null;
+
+ const record={
+  ...x,
+  code,
+  id:editId||uid(),
+  createdAt:old?.createdAt||new Date().toISOString(),
+  updatedAt:new Date().toISOString()
+ };
+
+ const next={
+  ...db,
+  assets:editId
+   ?db.assets.map(a=>a.id===editId?record:a)
+   :[record,...db.assets]
+ };
+
+ if(save(next)){
+  resetInventory();
+  render();
+  alert("Inventaris berhasil disimpan.");
+ }
+};
+
+function editInventory(id){
+ const a=assetBy(id);
+ if(!a)return;
+
+ editId=id;
+
+ const form=$("inventory-form");
+
+ Object.entries(a).forEach(([k,v])=>{
+  const field=form.elements.namedItem(k);
+  if(field&&typeof v==="string")field.value=v;
+ });
+
+ $("inventory-heading").textContent=
+  "Edit Inventaris - "+a.code;
+
+ $("asset-save").textContent="Simpan Perubahan";
+
+ syncType();
+ go("inventory");
+}
+
+function deleteInventory(id){
+ if(!confirm("Hapus inventaris ini?"))return;
+
+ const next={
+  ...db,
+  assets:db.assets.filter(a=>a.id!==id)
+ };
+
+ if(save(next))render();
+}
+
+function renderInventory(){
+ const q=$("inventory-search").value.toLowerCase();
+ const type=$("inventory-filter").value;
+
+ const rows=db.assets.filter(a=>
+  (!type||a.type===type)&&
+  [a.code,a.plant,a.location,a.department]
+   .join(" ").toLowerCase().includes(q)
+ );
+
+ $("inventory-rows").innerHTML=rows.map(a=>{
+  const cls=a.status==="Baik"?"good":
+   a.status==="Kadaluarsa"?"bad":"wait";
+
+  return `
+   <tr>
+    <td><b>${esc(a.code)}</b></td>
+    <td>${esc(a.type)}</td>
+    <td>${esc(a.plant)} / ${esc(a.location)}</td>
+    <td>${esc(a.type==="APAR"
+      ?[a.media,a.capacity].filter(Boolean).join(" / ")
+      :"Tipe "+(a.boxType||"-"))}</td>
+    <td>
+     <span class="status ${cls}">
+      ${esc(a.status)}
+     </span>
+    </td>
+    <td>
+     <button class="small-btn"
+      data-edit="${esc(a.id)}">Edit</button>
+     <button class="small-btn danger"
+      data-delete="${esc(a.id)}">Hapus</button>
+    </td>
+   </tr>
+  `;
+ }).join("")||
+ '<tr><td colspan="6">Belum ada inventaris.</td></tr>';
+}
+
+$("inventory-rows").addEventListener("click",e=>{
+ const edit=e.target.closest("[data-edit]");
+ const del=e.target.closest("[data-delete]");
+
+ if(edit)editInventory(edit.dataset.edit);
+ if(del)deleteInventory(del.dataset.delete);
+});
+
+$("inventory-search").oninput=renderInventory;
+$("inventory-filter").onchange=renderInventory;
+
+/* ==========================================
+   PILIH ASET INSPEKSI
+========================================== */
+
+function refreshAssets(){
+ [
+  ["apar-asset","APAR"],
+  ["p3k-asset","P3K"]
+ ].forEach(([id,type])=>{
+  const el=$(id);
+  const old=el.value;
+
+  el.innerHTML=
+   '<option value="">Pilih Aset</option>'+
+   db.assets.filter(a=>a.type===type)
+    .map(a=>`
+     <option value="${esc(a.id)}">
+      ${esc(a.code)} - ${esc(a.location)}
+     </option>
     `).join("");
 
-    $("home-metrics").innerHTML = html;
-    $("dash-metrics").innerHTML = html;
+  if([...el.options].some(o=>o.value===old)){
+   el.value=old;
   }
+ });
+}
 
-  function renderDonut() {
-    const items = db.assets.filter(a =>
-      a.type === statusType
-    );
+function setLocation(type){
+ const p=type.toLowerCase();
+ const asset=assetBy($(p+"-asset").value);
 
-    const statuses = [
-      ["Baik","#16a34a"],
-      ["Sedang Direfill","#eab308"],
-      ["Kadaluarsa","#ef4444"]
-    ];
+ $(p+"-location").value=asset
+  ?asset.plant+" - "+asset.location
+  :"";
 
-    let position = 0;
-    const gradient = [];
-
-    $("status-legend").innerHTML =
-      statuses.map(([status,color]) => {
-        const n = items.filter(a =>
-          a.status === status
-        ).length;
-
-        const percent = items.length
-          ? n / items.length * 100
-          : 0;
-
-        const end = position + percent;
-
-        if (n) {
-          gradient.push(
-            `${color} ${position}% ${end}%`
-          );
-        }
-
-        position = end;
-
-        return `
-          <div>
-            <span>${esc(status)}</span>
-            <b>${n} unit</b>
-          </div>
-        `;
-      }).join("");
-
-    $("asset-donut").style.background =
-      gradient.length
-        ? "conic-gradient(" + gradient.join(",") + ")"
-        : "#ececec";
-
-    $("donut-total").textContent = items.length;
-  }
-
-  $("status-apar").onclick = () => {
-    statusType = "APAR";
-    $("status-apar").classList.add("primary");
-    $("status-p3k").classList.remove("primary");
-    renderDonut();
-  };
-
-  $("status-p3k").onclick = () => {
-    statusType = "P3K";
-    $("status-p3k").classList.add("primary");
-    $("status-apar").classList.remove("primary");
-    renderDonut();
-  };
-
-  function renderRecent() {
-    $("recent-inspections").innerHTML =
-      db.inspections.slice(0,5).map(i => `
-        <div style="
-          border-bottom:1px solid var(--border);
-          padding:12px 0">
-          <b>Inspeksi ${esc(i.type)}</b>
-          <div>${esc(i.location)}</div>
-          <small class="muted">
-            ${esc(i.date)} -
-            ${i.findings || 0} temuan
-          </small>
-        </div>
-      `).join("") ||
-      '<p class="muted">Belum ada aktivitas inspeksi.</p>';
-  }
-
-  function renderInspections() {
-    const filter = $("inspection-filter").value;
-
-    const items = db.inspections.filter(i =>
-      !filter || i.type === filter
-    );
-
-    $("inspection-rows").innerHTML = items.map(i => `
-      <tr>
-        <td>${esc(i.date)}</td>
-        <td>${esc(i.type)}</td>
-        <td>${esc(i.assetCode)}</td>
-        <td>${esc(i.location)}</td>
-        <td>${esc(i.inspector)}</td>
-        <td>${i.findings || 0}</td>
-        <td>
-          <button class="small-btn"
-            data-view-inspection="${esc(i.id)}">
-            Lihat
-          </button>
-          <button class="small-btn danger"
-            data-delete-inspection="${esc(i.id)}">
-            Hapus
-          </button>
-        </td>
-      </tr>
-    `).join("") ||
-      '<tr><td colspan="7">Belum ada inspeksi.</td></tr>';
-
-    document.querySelectorAll(
-      "[data-view-inspection]"
-    ).forEach(btn => {
-      btn.onclick = () => {
-        const i = db.inspections.find(x =>
-          x.id === btn.dataset.viewInspection
-        );
-
-        if (!i) return;
-
-        const details = [
-          `INSPEKSI ${i.type}`,
-          `Kode: ${i.assetCode}`,
-          `Pemeriksa: ${i.inspector}`,
-          `Lokasi: ${i.location}`,
-          `Tanggal: ${i.date}`,
-          "",
-          ...(i.checks || []).map(c =>
-            `${c.code}: ${c.result} ${c.note || ""}`
-          ),
-          "",
-          ...(i.items || []).map(item =>
-            `${item.name}: ${item.actual} / ${item.target}`
-          ),
-          "",
-          `Total temuan: ${i.findings || 0}`,
-          `Catatan: ${i.notes || "-"}`
-        ];
-
-        alert(details.join("\n"));
-      };
-    });
-
-    document.querySelectorAll(
-      "[data-delete-inspection]"
-    ).forEach(btn => {
-      btn.onclick = () => {
-        if (!confirm("Hapus hasil inspeksi ini?")) return;
-
-        const old = structuredClone(db);
-
-        db.inspections = db.inspections.filter(i =>
-          i.id !== btn.dataset.deleteInspection
-        );
-
-        if (save()) render();
-        else db = old;
-      };
-    });
-  }
-
-  $("inspection-filter").onchange = renderInspections;
-
-  function render() {
-    refreshAssetSelects();
-    renderInventory();
-    renderMetrics();
-    renderDonut();
-    renderRecent();
-    renderInspections();
-  }
-
-  function download(filename,content,mime) {
-    const blob = new Blob([content],{type:mime});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = filename;
-
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    setTimeout(() => URL.revokeObjectURL(url),5000);
-  }
-
-  function csvSafe(value) {
-    let s = String(value ?? "");
-
-    if (/^\s*[=+@-]/.test(s)) {
-      s = "'" + s;
-    }
-
-    return '"' + s.replace(/"/g,'""') + '"';
-  }
-
-  $("export-csv").onclick = () => {
-    const headers = [
-      "Jenis Data","Tanggal","Tipe","Kode Aset",
-      "Plant","Lokasi","Nama Pemeriksa",
-      "Status","Temuan","Keterangan"
-    ];
-
-    const rows = [
-      ...db.assets.map(a => [
-        "Inventaris",
-        a.createdAt?.slice(0,10) || "",
-        a.type,a.code,a.plant,a.location,
-        "",a.status,"",a.notes || ""
-      ]),
-      ...db.inspections.map(i => [
-        "Inspeksi",
-        i.date,i.type,i.assetCode,
-        i.plant,i.location,i.inspector,
-        "",i.findings,
-        JSON.stringify({
-          checks:i.checks,
-          items:i.items,
-          notes:i.notes
-        })
-      ])
-    ];
-
-    if (!rows.length) {
-      alert("Belum ada data untuk diekspor.");
-      return;
-    }
-
-    const csv = "\ufeff" +
-      [headers,...rows]
-        .map(row => row.map(csvSafe).join(";"))
-        .join("\r\n");
-
-    download(
-      "SOPRA_Inventaris_HSE_" + today() + ".csv",
-      csv,
-      "text/csv;charset=utf-8"
-    );
-  };
-
-  $("export-json").onclick = () => {
-    const backup = {
-      application:"SOPRA APAR P3K",
-      exportedAt:new Date().toISOString(),
-      ...db
-    };
-
-    download(
-      "SOPRA_HSE_Backup_" + today() + ".json",
-      JSON.stringify(backup,null,2),
-      "application/json"
-    );
-  };
-
-  $("import-json").onclick = () => {
-    $("import-file").click();
-  };
-
-  $("import-file").onchange = async event => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    try {
-      if (file.size > 15 * 1024 * 1024) {
-        throw Error("File backup terlalu besar.");
-      }
-
-      const imported = JSON.parse(await file.text());
-
-      if (
-        imported.application !== "SOPRA APAR P3K" ||
-        !Array.isArray(imported.assets) ||
-        !Array.isArray(imported.inspections)
-      ) {
-        throw Error("Format backup tidak sesuai.");
-      }
-
-      if (
-        imported.assets.length > 10000 ||
-        imported.inspections.length > 30000
-      ) {
-        throw Error("Jumlah data terlalu banyak.");
-      }
-
-      if (
-        imported.assets.some(a =>
-          !a || typeof a.id !== "string" ||
-          !["APAR","P3K"].includes(a.type) ||
-          typeof a.code !== "string"
-        ) ||
-        imported.inspections.some(i =>
-          !i || typeof i.id !== "string" ||
-          !["APAR","P3K"].includes(i.type) ||
-          !Array.isArray(i.checks)
-        )
-      ) {
-        throw Error("Ada data yang tidak valid.");
-      }
-
-      if (!confirm(
-        "Impor backup akan menambahkan atau " +
-        "memperbarui data dengan ID yang sama. Lanjut?"
-      )) return;
-
-      const old = structuredClone(db);
-
-      const assetMap = new Map(
-        db.assets.map(a => [a.id,a])
-      );
-      const inspectionMap = new Map(
-        db.inspections.map(i => [i.id,i])
-      );
-
-      imported.assets.forEach(a =>
-        assetMap.set(a.id,a)
-      );
-
-      imported.inspections.forEach(i =>
-        inspectionMap.set(i.id,i)
-      );
-
-      db.assets = [...assetMap.values()];
-      db.inspections = [...inspectionMap.values()];
-
-      if (save()) {
-        render();
-        alert("Backup berhasil diimpor.");
-      } else {
-        db = old;
-      }
-
-    } catch (error) {
-      alert("Gagal impor: " + error.message);
-    } finally {
-      event.target.value = "";
-    }
-  };
-
-  $("print-dashboard").onclick = () => {
-    go("dashboard");
-    window.print();
-  };
-
-  load();
-  buildItems();
-  syncType();
+ if(type==="P3K"){
+  $("inspection-box-type").value=asset?.boxType||"";
   updateTargets();
+ }
+}
+
+$("apar-asset").onchange=()=>setLocation("APAR");
+$("p3k-asset").onchange=()=>setLocation("P3K");
+
+/* ==========================================
+   BANGUN CHECKLIST
+========================================== */
+
+function buildChecks(type){
+ const questions=type==="APAR"?APAR:P3K;
+ const p=type.toLowerCase();
+
+ $(p+"-checks").innerHTML=questions.map(([code,q],i)=>`
+  <div class="check">
+   <b>${code} - ${esc(q)} *</b>
+
+   <div class="options">
+    ${["Ya","Tidak","N/A"].map(a=>`
+     <label>
+      <input type="radio"
+       name="check_${i}"
+       value="${a}" required>
+      ${a}
+     </label>
+    `).join("")}
+   </div>
+
+   <input type="text"
+    name="note_${i}"
+    maxlength="400"
+    placeholder="Keterangan wajib jika Tidak">
+  </div>
+ `).join("");
+}
+
+function buildItems(){
+ $("p3k-items").innerHTML=ITEMS.map(([name],i)=>`
+  <tr>
+   <td>${i+1}. ${esc(name)}</td>
+   <td id="target-${i}">-</td>
+   <td>
+    <input type="number"
+     name="actual_${i}"
+     min="0" step="1" required>
+   </td>
+   <td>
+    <input type="text"
+     name="itemnote_${i}"
+     maxlength="400"
+     placeholder="Keterangan">
+   </td>
+  </tr>
+ `).join("");
+}
+
+function updateTargets(){
+ const index={A:1,B:2,C:3}[
+  $("inspection-box-type").value
+ ];
+
+ ITEMS.forEach((item,i)=>{
+  $("target-"+i).textContent=
+   index?item[index]:"-";
+ });
+}
+
+$("inspection-box-type").onchange=updateTargets;
+
+/* ==========================================
+   FOTO
+========================================== */
+
+function setupPhoto(type){
+ const p=type.toLowerCase();
+
+ $(p+"-photo").onchange=e=>{
+  photos[type]="";
+
+  const img=$(p+"-preview");
+  img.hidden=true;
+
+  const f=e.target.files?.[0];
+  if(!f)return;
+
+  if(
+   !["image/jpeg","image/png","image/webp"].includes(f.type)||
+   f.size>500*1024
+  ){
+   alert("Foto harus JPG/PNG/WebP maksimal 500 KB.");
+   e.target.value="";
+   return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=()=>{
+   photos[type]=String(reader.result||"");
+   img.src=photos[type];
+   img.hidden=false;
+  };
+
+  reader.readAsDataURL(f);
+ };
+}
+
+/* ==========================================
+   SIMPAN INSPEKSI APAR / P3K
+========================================== */
+
+function saveInspection(type,form){
+ const x=values(form);
+ const asset=assetBy(x.assetId);
+
+ if(!asset||asset.type!==type){
+  alert("Pilih aset yang sesuai.");
+  return;
+ }
+
+ const questions=type==="APAR"?APAR:P3K;
+
+ const checks=questions.map(([code,question],i)=>({
+  code,
+  question,
+  result:x["check_"+i],
+  note:String(x["note_"+i]||"").trim()
+ }));
+
+ if(checks.some(c=>
+  !c.result||(c.result==="Tidak"&&!c.note)
+ )){
+  alert("Jawaban Tidak wajib disertai keterangan.");
+  return;
+ }
+
+ const boxType=type==="P3K"
+  ?x.inspectionBoxType:"";
+
+ const index={A:1,B:2,C:3}[boxType];
+
+ const items=type==="P3K"
+  ?ITEMS.map((item,i)=>({
+   name:item[0],
+   target:index?item[index]:null,
+   actual:Number(x["actual_"+i]),
+   note:x["itemnote_"+i]||""
+  }))
+  :[];
+
+ if(type==="P3K"&&(
+  !index||
+  items.some(it=>
+   !Number.isInteger(it.actual)||it.actual<0
+  )
+ )){
+  alert("Lengkapi tipe kotak dan jumlah aktual P3K.");
+  return;
+ }
+
+ const shortages=items.filter(it=>
+  it.target!==null && it.actual<it.target
+ ).length;
+
+ const record={
+  id:uid(),
+  type,
+  assetId:asset.id,
+  assetCode:asset.code,
+  plant:asset.plant,
+  location:x.inspectionLocation,
+  inspector:x.inspector,
+  date:x.date,
+  boxType,
+  notes:x.notes||"",
+  checks,
+  items,
+  findings:checks.filter(c=>c.result==="Tidak").length+
+   shortages,
+  photo:photos[type],
+  createdAt:new Date().toISOString()
+ };
+
+ const next={
+  ...db,
+  inspections:[record,...db.inspections]
+ };
+
+ if(save(next)){
+  form.reset();
+
+  photos[type]="";
+
+  const p=type.toLowerCase();
+  $(p+"-preview").hidden=true;
+  $(p+"-preview").removeAttribute("src");
+
+  form.querySelector('[type="date"]').value=today();
+
+  if(type==="P3K")updateTargets();
+
   render();
-  go("home");
+  go("history");
+
+  alert("Inspeksi berhasil disimpan.");
+ }
+}
+
+/* ==========================================
+   INITIAL FORM
+========================================== */
+
+["APAR","P3K"].forEach(type=>{
+ buildChecks(type);
+ setupPhoto(type);
+
+ const p=type.toLowerCase();
+ const form=$(p+"-form");
+
+ form.querySelector('[type="date"]').value=today();
+
+ form.addEventListener("change",()=>{
+  const questions=type==="APAR"?APAR:P3K;
+
+  questions.forEach((_,i)=>{
+   const answer=form.querySelector(
+    `input[name="check_${i}"]:checked`
+   );
+
+   const note=form.elements.namedItem("note_"+i);
+
+   note.required=answer?.value==="Tidak";
+  });
+ });
+
+ form.onsubmit=e=>{
+  e.preventDefault();
+
+  if(form.reportValidity()){
+   saveInspection(type,form);
+  }
+ };
+
+ form.addEventListener("reset",()=>{
+  setTimeout(()=>{
+   photos[type]="";
+   $(p+"-preview").hidden=true;
+   form.querySelector('[type="date"]').value=today();
+   if(type==="P3K")updateTargets();
+   form.querySelectorAll('[name^="note_"]').forEach(el=>{
+    el.required=false;
+   });
+  },0);
+ });
+});
+
+buildItems();
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+function renderMetrics(){
+ const findings=db.inspections.reduce(
+  (sum,i)=>sum+(Number(i.findings)||0),0
+ );
+
+ const stats=[
+  ["Total APAR",
+   db.assets.filter(a=>a.type==="APAR").length],
+  ["Total P3K",
+   db.assets.filter(a=>a.type==="P3K").length],
+  ["Jumlah Inspeksi",db.inspections.length],
+  ["Total Temuan",findings]
+ ];
+
+ $("home-metrics").innerHTML=stats.map(([name,n])=>`
+  <div class="card">
+   <small>${esc(name)}</small>
+   <strong>${n}</strong>
+  </div>
+ `).join("");
+}
+
+function renderDonut(){
+ const assets=db.assets.filter(a=>a.type===statusType);
+
+ const states=[
+  ["Baik","#16a34a"],
+  ["Sedang Direfill","#eab308"],
+  ["Kadaluarsa","#ef4444"]
+ ];
+
+ let start=0;
+ const stops=[];
+
+ $("status-legend").innerHTML=states.map(([name,color])=>{
+  const n=assets.filter(a=>a.status===name).length;
+  const percent=assets.length?n/assets.length*100:0;
+  const end=start+percent;
+
+  if(n){
+   stops.push(`${color} ${start}% ${end}%`);
+  }
+
+  start=end;
+
+  return `
+   <div>
+    <span>${esc(name)}</span>
+    <b>${n} unit</b>
+   </div>
+  `;
+ }).join("");
+
+ $("asset-donut").style.background=stops.length
+  ?"conic-gradient("+stops.join(",")+")"
+  :"#ececec";
+
+ $("donut-total").textContent=assets.length;
+}
+
+$("status-apar").onclick=()=>{
+ statusType="APAR";
+ $("status-apar").classList.add("primary");
+ $("status-p3k").classList.remove("primary");
+ renderDonut();
+};
+
+$("status-p3k").onclick=()=>{
+ statusType="P3K";
+ $("status-p3k").classList.add("primary");
+ $("status-apar").classList.remove("primary");
+ renderDonut();
+};
+
+function renderRecent(){
+ $("recent-inspections").innerHTML=
+  db.inspections.slice(0,5).map(i=>`
+   <div style="
+    border-bottom:1px solid var(--border);
+    padding:12px 0">
+    <b>Inspeksi ${esc(i.type)}</b>
+    <div>${esc(i.assetCode)} - ${esc(i.location)}</div>
+    <small class="muted">${esc(i.date)}</small>
+   </div>
+  `).join("")||
+  '<p class="muted">Belum ada inspeksi.</p>';
+}
+
+/* ==========================================
+   RIWAYAT TABEL RINGKAS
+========================================== */
+
+function showList(scroll=true){
+ selectedId=null;
+
+ $("history-list-view").hidden=false;
+ $("history-detail-view").hidden=true;
+
+ renderInspections();
+
+ if(scroll)window.scrollTo(0,0);
+}
+
+function renderInspections(){
+ const type=$("inspection-filter").value;
+ const query=$("inspection-search").value.toLowerCase();
+
+ const list=db.inspections.filter(i=>
+  (!type||i.type===type)&&
+  [i.assetCode,i.plant,i.location,i.inspector,i.type]
+   .join(" ").toLowerCase().includes(query)
+ );
+
+ $("inspection-count").textContent=
+  "Menampilkan "+list.length+
+  " dari "+db.inspections.length+" inspeksi";
+
+ $("inspection-rows").innerHTML=list.map((i,n)=>`
+  <tr>
+   <td>${n+1}</td>
+   <td>${esc(i.date)}</td>
+   <td>${esc(i.type)}</td>
+   <td><b>${esc(i.assetCode)}</b></td>
+   <td>${esc(i.plant)}</td>
+   <td>${esc(i.location)}</td>
+   <td>${esc(i.inspector)}</td>
+   <td class="history-actions">
+    <button class="small-btn"
+     data-view="${esc(i.id)}">Lihat Detail</button>
+    <button class="small-btn danger"
+     data-remove="${esc(i.id)}">Hapus</button>
+   </td>
+  </tr>
+ `).join("")||
+ '<tr><td colspan="8">Belum ada inspeksi.</td></tr>';
+}
+
+$("inspection-filter").onchange=renderInspections;
+$("inspection-search").oninput=renderInspections;
+
+$("inspection-rows").addEventListener("click",e=>{
+ const view=e.target.closest("[data-view]");
+ const remove=e.target.closest("[data-remove]");
+
+ if(view)showDetail(view.dataset.view);
+ if(remove)deleteInspection(remove.dataset.remove);
+});
+
+function deleteInspection(id){
+ if(!confirm("Hapus hasil inspeksi ini?"))return;
+
+ const next={
+  ...db,
+  inspections:db.inspections.filter(i=>i.id!==id)
+ };
+
+ if(save(next))render();
+}
+
+/* ==========================================
+   DETAIL INSPEKSI
+========================================== */
+
+function info(label,value){
+ return `
+  <div>
+   <small>${esc(label)}</small>
+   <b>${esc(value??"-")}</b>
+  </div>
+ `;
+}
+
+function detailMarkup(i){
+ const asset=assetBy(i.assetId);
+
+ const fields=[
+  ["Tanggal Inspeksi",i.date],
+  ["Jenis Inspeksi",i.type],
+  ["Kode Aset",i.assetCode],
+  ["Plant",i.plant],
+  ["Lokasi Inspeksi",i.location],
+  ["Nama Pemeriksa",i.inspector]
+ ];
+
+ if(i.type==="APAR"){
+  fields.push(
+   ["Jenis Media",asset?.media||"-"],
+   ["Kapasitas APAR",asset?.capacity||"-"]
+  );
+ }else{
+  fields.push([
+   "Tipe Kotak P3K",
+   i.boxType||asset?.boxType||"-"
+  ]);
+ }
+
+ const checks=(i.checks||[]).map((c,n)=>`
+  <tr>
+   <td>${n+1}</td>
+   <td>${esc(c.code||"-")}</td>
+   <td>${esc(c.question||"-")}</td>
+   <td>${esc(c.result||"-")}</td>
+   <td>${esc(c.note||"-")}</td>
+  </tr>
+ `).join("");
+
+ const items=i.type==="P3K"?`
+  <h3 class="section-title">
+   C. Kelengkapan Isi Kotak P3K
+  </h3>
+
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>No.</th>
+      <th>Perlengkapan</th>
+      <th>Standar</th>
+      <th>Aktual</th>
+      <th>Catatan</th>
+     </tr>
+    </thead>
+
+    <tbody>
+     ${(i.items||[]).map((it,n)=>`
+      <tr>
+       <td>${n+1}</td>
+       <td>${esc(it.name)}</td>
+       <td>${esc(it.target??"-")}</td>
+       <td>${esc(it.actual??"-")}</td>
+       <td>${esc(it.note||"-")}</td>
+      </tr>
+     `).join("")}
+    </tbody>
+   </table>
+  </div>
+ `:"";
+
+ return `
+  <h2>
+   Hasil Inspeksi ${esc(i.type)} — ${esc(i.assetCode)}
+  </h2>
+
+  <p class="muted">
+   Hasil pemeriksaan lengkap yang telah disimpan.
+  </p>
+
+  <h3 class="section-title">
+   A. Identitas Pemeriksaan
+  </h3>
+
+  <div class="detail-info">
+   ${fields.map(x=>info(x[0],x[1])).join("")}
+  </div>
+
+  <h3 class="section-title">
+   B. Checklist Pemeriksaan ${esc(i.type)}
+  </h3>
+
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr>
+      <th>No.</th>
+      <th>Kode</th>
+      <th>Pertanyaan</th>
+      <th>Jawaban</th>
+      <th>Keterangan</th>
+     </tr>
+    </thead>
+
+    <tbody>${checks}</tbody>
+   </table>
+  </div>
+
+  ${items}
+
+  <h3 class="section-title">
+   ${i.type==="P3K"?"D":"C"}. Catatan / Tindak Lanjut
+  </h3>
+
+  <div class="detail-note">
+   ${esc(i.notes||"-")}
+  </div>
+
+  <h3 class="section-title">
+   ${i.type==="P3K"?"E":"D"}. Dokumentasi
+  </h3>
+
+  ${safePhoto(i.photo)
+   ?`<img class="detail-photo"
+       src="${safePhoto(i.photo)}"
+       alt="Foto Inspeksi">`
+   :'<p class="muted">Tidak ada foto dokumentasi.</p>'
+  }
+ `;
+}
+
+function showDetail(id){
+ const i=inspectionBy(id);
+
+ if(!i){
+  alert("Hasil inspeksi tidak ditemukan.");
+  return;
+ }
+
+ selectedId=id;
+
+ $("inspection-detail").innerHTML=detailMarkup(i);
+ $("history-list-view").hidden=true;
+ $("history-detail-view").hidden=false;
+
+ window.scrollTo(0,0);
+}
+
+$("back-to-history").onclick=()=>showList();
+
+$("print-detail").onclick=()=>{
+ if(selectedId)printInspection(selectedId);
+};
+
+/* ==========================================
+   CETAK / SIMPAN PDF
+========================================== */
+
+function printInspection(id){
+ const i=inspectionBy(id);
+ if(!i)return;
+
+ const w=window.open("","_blank");
+
+ if(!w){
+  alert("Izinkan pop-up browser untuk mencetak PDF.");
+  return;
+ }
+
+ const body=detailMarkup(i);
+
+ w.document.open();
+ w.document.write(`
+ <!DOCTYPE html>
+ <html lang="id">
+ <head>
+ <meta charset="UTF-8">
+ <title>Inspeksi ${esc(i.type)} - ${esc(i.assetCode)}</title>
+
+ <style>
+ @page{size:A4;margin:14mm}
+ body{font:11px/1.45 Arial,sans-serif;color:#2e2528}
+ h1{text-align:center;font-size:17px}
+ h2{font-size:16px}
+ h3{font-size:12px;margin-top:18px}
+ table{
+  width:100%;border-collapse:collapse;margin:10px 0
+ }
+ th,td{
+  border:1px solid #bbb;padding:7px;
+  text-align:left;vertical-align:top;
+  overflow-wrap:anywhere
+ }
+ th{background:#f3e8ea}
+ tr{break-inside:avoid}
+ .detail-info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px
+ }
+ .detail-info>div{
+  border:1px solid #ddd;padding:8px
+ }
+ .detail-info small{display:block;color:#666}
+ .detail-note{white-space:pre-wrap}
+ .detail-photo{max-width:100%;max-height:320px}
+ .controls{
+  text-align:center;margin-bottom:20px;
+  padding:10px;background:#f4e8ea
+ }
+ @media print{
+  .controls{display:none}
+ }
+ </style>
+ </head>
+
+ <body>
+ <div class="controls">
+  <button onclick="window.print()">
+   Cetak / Simpan PDF
+  </button>
+ </div>
+
+ <h1>
+  LAPORAN HASIL INSPEKSI APAR & P3K
+  <div>PT SOLUSI PRIMA PACKAGING</div>
+ </h1>
+
+ ${body}
+
+ </body>
+ </html>
+ `);
+
+ w.document.close();
+}
+
+/* ==========================================
+   DOWNLOAD CSV HORIZONTAL
+========================================== */
+
+function download(name,content,mime){
+ const blob=new Blob([content],{type:mime});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+
+ a.href=url;
+ a.download=name;
+
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+
+ setTimeout(()=>URL.revokeObjectURL(url),5000);
+}
+
+function csvSafe(value){
+ let s=String(value??"");
+
+ // Hindari eksekusi formula oleh spreadsheet
+ if(/^\s*[=+@-]/.test(s)){
+  s="'"+s;
+ }
+
+ return '"'+s.replace(/"/g,'""')+'"';
+}
+
+/*
+  FORMAT REKAP:
+  1 INSPEKSI = 1 BARIS
+
+  KOLOM IDENTITAS
+  + SELURUH CHECKLIST APAR
+  + SELURUH CHECKLIST P3K
+  + 18 ITEM P3K
+  + CATATAN
+
+  TANPA JUMLAH TEMUAN
+*/
+
+$("export-csv").onclick=()=>{
+ if(!db.inspections.length){
+  alert("Belum ada data inspeksi.");
+  return;
+ }
+
+ const headers=[
+  "No",
+  "ID Inspeksi",
+  "Tanggal",
+  "Jenis",
+  "Kode Aset",
+  "Plant",
+  "Lokasi",
+  "Nama Pemeriksa",
+  "Tipe Kotak P3K",
+  "Catatan / Tindak Lanjut"
+ ];
+
+ for(let n=1;n<=6;n++){
+  headers.push(
+   "APAR Pertanyaan "+n,
+   "APAR Jawaban "+n,
+   "APAR Keterangan "+n
+  );
+ }
+
+ for(let n=1;n<=5;n++){
+  headers.push(
+   "P3K Pertanyaan "+n,
+   "P3K Jawaban "+n,
+   "P3K Keterangan "+n
+  );
+ }
+
+ for(let n=1;n<=18;n++){
+  headers.push(
+   "P3K Item "+n,
+   "Standar "+n,
+   "Aktual "+n,
+   "Catatan Item "+n
+  );
+ }
+
+ const rows=db.inspections.map((i,index)=>{
+  const row=[
+   index+1,
+   i.id,
+   i.date,
+   i.type,
+   i.assetCode,
+   i.plant,
+   i.location,
+   i.inspector,
+   i.boxType||"",
+   i.notes||""
+  ];
+
+  for(let n=0;n<6;n++){
+   const c=i.type==="APAR"
+    ?i.checks?.[n]
+    :null;
+
+   row.push(
+    c?.question||"",
+    c?.result||"",
+    c?.note||""
+   );
+  }
+
+  for(let n=0;n<5;n++){
+   const c=i.type==="P3K"
+    ?i.checks?.[n]
+    :null;
+
+   row.push(
+    c?.question||"",
+    c?.result||"",
+    c?.note||""
+   );
+  }
+
+  for(let n=0;n<18;n++){
+   const item=i.type==="P3K"
+    ?i.items?.[n]
+    :null;
+
+   row.push(
+    item?.name||"",
+    item?.target??"",
+    item?.actual??"",
+    item?.note||""
+   );
+  }
+
+  return row;
+ });
+
+ const content="\ufeff"+
+  [headers,...rows].map(r=>
+   r.map(csvSafe).join(";")
+  ).join("\r\n");
+
+ download(
+  "SOPRA_Rekap_Inspeksi_APAR_P3K_"+
+  today()+".csv",
+  content,
+  "text/csv;charset=utf-8"
+ );
+};
+
+/* ==========================================
+   BACKUP JSON
+========================================== */
+
+$("export-json").onclick=()=>{
+ const backup={
+  application:"SOPRA APAR P3K",
+  exportedAt:new Date().toISOString(),
+  ...db
+ };
+
+ download(
+  "SOPRA_HSE_Backup_"+today()+".json",
+  JSON.stringify(backup,null,2),
+  "application/json"
+ );
+};
+
+/* ==========================================
+   IMPOR BACKUP JSON
+========================================== */
+
+$("import-json").onclick=()=>{
+ $("import-file").click();
+};
+
+$("import-file").onchange=async e=>{
+ const file=e.target.files?.[0];
+ if(!file)return;
+
+ try{
+  if(file.size>15*1024*1024){
+   throw Error("Ukuran file terlalu besar.");
+  }
+
+  const imported=JSON.parse(await file.text());
+
+  if(
+   imported.application!=="SOPRA APAR P3K"||
+   !Array.isArray(imported.assets)||
+   !Array.isArray(imported.inspections)
+  ){
+   throw Error("Format backup tidak sesuai.");
+  }
+
+  if(
+   imported.assets.length>10000||
+   imported.inspections.length>30000
+  ){
+   throw Error("Jumlah data terlalu besar.");
+  }
+
+  if(
+   imported.assets.some(a=>
+    !a||
+    typeof a.id!=="string"||
+    !["APAR","P3K"].includes(a.type)||
+    typeof a.code!=="string"
+   )||
+   imported.inspections.some(i=>
+    !i||
+    typeof i.id!=="string"||
+    !["APAR","P3K"].includes(i.type)||
+    !Array.isArray(i.checks)
+   )
+  ){
+   throw Error("Struktur data tidak valid.");
+  }
+
+  if(!confirm(
+   "Gabungkan data backup dengan data browser?"
+  ))return;
+
+  const assets=new Map(
+   db.assets.map(a=>[a.id,a])
+  );
+
+  const inspections=new Map(
+   db.inspections.map(i=>[i.id,i])
+  );
+
+  imported.assets.forEach(a=>{
+   assets.set(a.id,a);
+  });
+
+  imported.inspections.forEach(i=>{
+   inspections.set(i.id,i);
+  });
+
+  const next={
+   assets:[...assets.values()],
+   inspections:[...inspections.values()]
+  };
+
+  if(save(next)){
+   showList(false);
+   render();
+   alert("Backup berhasil diimpor.");
+  }
+
+ }catch(error){
+  alert("Gagal impor: "+error.message);
+ }finally{
+  e.target.value="";
+ }
+};
+
+/* ==========================================
+   RENDER DATA
+========================================== */
+
+function render(){
+ refreshAssets();
+ renderInventory();
+ renderMetrics();
+ renderDonut();
+ renderRecent();
+ renderInspections();
+}
+
+/* ==========================================
+   JALANKAN WEBSITE
+========================================== */
+
+load();
+syncType();
+updateTargets();
+render();
+go("home");
 
 })();
 </script>
