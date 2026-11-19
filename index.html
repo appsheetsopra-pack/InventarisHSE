@@ -234,6 +234,17 @@ table input[type=text]{
  max-width:100%;max-height:380px;
  border-radius:9px;object-fit:contain
 }
+.id-code{
+ display:inline-block;
+ font-family:Consolas,monospace;
+ font-weight:700;
+ font-size:12px;
+ color:var(--maroon);
+ background:#fff0f2;
+ padding:5px 8px;
+ border-radius:6px;
+ white-space:nowrap
+}
 .footer{
  text-align:center;color:var(--muted);
  font-size:12px;margin-top:24px
@@ -798,7 +809,7 @@ table input[type=text]{
     </select>
 
     <input class="btn" id="inspection-search"
-           placeholder="Cari kode, lokasi, pemeriksa">
+           placeholder="Cari ID, kode aset, lokasi, pemeriksa">
 
    </div>
 
@@ -809,6 +820,7 @@ table input[type=text]{
      <thead>
       <tr>
        <th>No.</th>
+       <th>ID Inspeksi</th>
        <th>Tanggal</th>
        <th>Jenis</th>
        <th>Kode Aset</th>
@@ -963,23 +975,55 @@ function values(form){
  );
 }
 
-function clone(v){
- return JSON.parse(JSON.stringify(v));
-}
-
 function safePhoto(v){
  return typeof v==="string" &&
  /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(v)
  ?v:"";
 }
 
+/* ==========================================
+   GENERATOR ID INSPEKSI OTOMATIS
+
+   APAR: INS-APAR-2026-0001
+   P3K : INS-P3K-2026-0001
+
+   NOMOR PER JENIS DAN TAHUN
+========================================== */
+
+function generateInspectionId(type,date){
+
+ const year=String(date||today()).slice(0,4);
+
+ const prefix="INS-"+type+"-"+year+"-";
+
+ const existingNumbers=db.inspections
+  .map(item=>String(item.id||""))
+  .filter(id=>id.startsWith(prefix))
+  .map(id=>Number(id.slice(prefix.length)))
+  .filter(n=>Number.isInteger(n)&&n>0);
+
+ const nextNumber=
+  Math.max(0,...existingNumbers)+1;
+
+ const serial=String(nextNumber).padStart(4,"0");
+
+ return prefix+serial;
+}
+
+/* ==========================================
+   DATABASE
+========================================== */
+
 function load(){
  try{
   const x=JSON.parse(localStorage.getItem(STORE)||"{}");
+
   db={
    assets:Array.isArray(x.assets)?x.assets:[],
-   inspections:Array.isArray(x.inspections)?x.inspections:[]
+   inspections:Array.isArray(x.inspections)
+    ?x.inspections:[]
   };
+
  }catch{
   db={assets:[],inspections:[]};
  }
@@ -987,9 +1031,14 @@ function load(){
 
 function save(next){
  try{
-  localStorage.setItem(STORE,JSON.stringify(next));
+  localStorage.setItem(
+   STORE,
+   JSON.stringify(next)
+  );
+
   db=next;
   return true;
+
  }catch(e){
   alert("Gagal menyimpan: "+e.message);
   return false;
@@ -1045,7 +1094,9 @@ function go(page){
  $("page-title").textContent=TITLES[page][0];
  $("page-desc").textContent=TITLES[page][1];
 
- if(page==="history")showList(false);
+ if(page==="history"){
+  showList(false);
+ }
 
  render();
 
@@ -1079,8 +1130,12 @@ $("asset-type").onchange=syncType;
 function resetInventory(){
  editId=null;
  $("inventory-form").reset();
- $("inventory-heading").textContent="Tambah Inventaris";
- $("asset-save").textContent="Simpan Inventaris";
+ $("inventory-heading").textContent=
+  "Tambah Inventaris";
+
+ $("asset-save").textContent=
+  "Simpan Inventaris";
+
  syncType();
 }
 
@@ -1125,6 +1180,7 @@ $("inventory-form").onsubmit=e=>{
  if(save(next)){
   resetInventory();
   render();
+
   alert("Inventaris berhasil disimpan.");
  }
 };
@@ -1139,13 +1195,17 @@ function editInventory(id){
 
  Object.entries(a).forEach(([k,v])=>{
   const field=form.elements.namedItem(k);
-  if(field&&typeof v==="string")field.value=v;
+
+  if(field&&typeof v==="string"){
+   field.value=v;
+  }
  });
 
  $("inventory-heading").textContent=
   "Edit Inventaris - "+a.code;
 
- $("asset-save").textContent="Simpan Perubahan";
+ $("asset-save").textContent=
+  "Simpan Perubahan";
 
  syncType();
  go("inventory");
@@ -1159,7 +1219,9 @@ function deleteInventory(id){
   assets:db.assets.filter(a=>a.id!==id)
  };
 
- if(save(next))render();
+ if(save(next)){
+  render();
+ }
 }
 
 function renderInventory(){
@@ -1180,10 +1242,14 @@ function renderInventory(){
    <tr>
     <td><b>${esc(a.code)}</b></td>
     <td>${esc(a.type)}</td>
-    <td>${esc(a.plant)} / ${esc(a.location)}</td>
-    <td>${esc(a.type==="APAR"
+    <td>
+     ${esc(a.plant)} / ${esc(a.location)}
+    </td>
+    <td>
+     ${esc(a.type==="APAR"
       ?[a.media,a.capacity].filter(Boolean).join(" / ")
-      :"Tipe "+(a.boxType||"-"))}</td>
+      :"Tipe "+(a.boxType||"-"))}
+    </td>
     <td>
      <span class="status ${cls}">
       ${esc(a.status)}
@@ -1191,9 +1257,14 @@ function renderInventory(){
     </td>
     <td>
      <button class="small-btn"
-      data-edit="${esc(a.id)}">Edit</button>
+      data-edit="${esc(a.id)}">
+      Edit
+     </button>
+
      <button class="small-btn danger"
-      data-delete="${esc(a.id)}">Hapus</button>
+      data-delete="${esc(a.id)}">
+      Hapus
+     </button>
     </td>
    </tr>
   `;
@@ -1205,8 +1276,13 @@ $("inventory-rows").addEventListener("click",e=>{
  const edit=e.target.closest("[data-edit]");
  const del=e.target.closest("[data-delete]");
 
- if(edit)editInventory(edit.dataset.edit);
- if(del)deleteInventory(del.dataset.delete);
+ if(edit){
+  editInventory(edit.dataset.edit);
+ }
+
+ if(del){
+  deleteInventory(del.dataset.delete);
+ }
 });
 
 $("inventory-search").oninput=renderInventory;
@@ -1248,7 +1324,9 @@ function setLocation(type){
   :"";
 
  if(type==="P3K"){
-  $("inspection-box-type").value=asset?.boxType||"";
+  $("inspection-box-type").value=
+   asset?.boxType||"";
+
   updateTargets();
  }
 }
@@ -1264,47 +1342,60 @@ function buildChecks(type){
  const questions=type==="APAR"?APAR:P3K;
  const p=type.toLowerCase();
 
- $(p+"-checks").innerHTML=questions.map(([code,q],i)=>`
-  <div class="check">
-   <b>${code} - ${esc(q)} *</b>
+ $(p+"-checks").innerHTML=
+  questions.map(([code,q],i)=>`
+   <div class="check">
 
-   <div class="options">
-    ${["Ya","Tidak","N/A"].map(a=>`
-     <label>
-      <input type="radio"
-       name="check_${i}"
-       value="${a}" required>
-      ${a}
-     </label>
-    `).join("")}
+    <b>${code} - ${esc(q)} *</b>
+
+    <div class="options">
+     ${["Ya","Tidak","N/A"].map(a=>`
+      <label>
+       <input
+        type="radio"
+        name="check_${i}"
+        value="${a}"
+        required>
+       ${a}
+      </label>
+     `).join("")}
+    </div>
+
+    <input
+     type="text"
+     name="note_${i}"
+     maxlength="400"
+     placeholder="Keterangan wajib jika Tidak">
+
    </div>
-
-   <input type="text"
-    name="note_${i}"
-    maxlength="400"
-    placeholder="Keterangan wajib jika Tidak">
-  </div>
- `).join("");
+  `).join("");
 }
 
 function buildItems(){
- $("p3k-items").innerHTML=ITEMS.map(([name],i)=>`
-  <tr>
-   <td>${i+1}. ${esc(name)}</td>
-   <td id="target-${i}">-</td>
-   <td>
-    <input type="number"
-     name="actual_${i}"
-     min="0" step="1" required>
-   </td>
-   <td>
-    <input type="text"
-     name="itemnote_${i}"
-     maxlength="400"
-     placeholder="Keterangan">
-   </td>
-  </tr>
- `).join("");
+ $("p3k-items").innerHTML=
+  ITEMS.map(([name],i)=>`
+   <tr>
+    <td>${i+1}. ${esc(name)}</td>
+    <td id="target-${i}">-</td>
+
+    <td>
+     <input
+      type="number"
+      name="actual_${i}"
+      min="0"
+      step="1"
+      required>
+    </td>
+
+    <td>
+     <input
+      type="text"
+      name="itemnote_${i}"
+      maxlength="400"
+      placeholder="Keterangan">
+    </td>
+   </tr>
+  `).join("");
 }
 
 function updateTargets(){
@@ -1334,13 +1425,18 @@ function setupPhoto(type){
   img.hidden=true;
 
   const f=e.target.files?.[0];
+
   if(!f)return;
 
   if(
-   !["image/jpeg","image/png","image/webp"].includes(f.type)||
+   !["image/jpeg","image/png","image/webp"]
+    .includes(f.type)||
    f.size>500*1024
   ){
-   alert("Foto harus JPG/PNG/WebP maksimal 500 KB.");
+   alert(
+    "Foto harus JPG/PNG/WebP maksimal 500 KB."
+   );
+
    e.target.value="";
    return;
   }
@@ -1359,10 +1455,13 @@ function setupPhoto(type){
 
 /* ==========================================
    SIMPAN INSPEKSI APAR / P3K
+   ID OTOMATIS TERINTEGRASI
 ========================================== */
 
 function saveInspection(type,form){
+
  const x=values(form);
+
  const asset=assetBy(x.assetId);
 
  if(!asset||asset.type!==type){
@@ -1380,14 +1479,18 @@ function saveInspection(type,form){
  }));
 
  if(checks.some(c=>
-  !c.result||(c.result==="Tidak"&&!c.note)
+  !c.result||
+  (c.result==="Tidak"&&!c.note)
  )){
-  alert("Jawaban Tidak wajib disertai keterangan.");
+  alert(
+   "Jawaban Tidak wajib disertai keterangan."
+  );
   return;
  }
 
  const boxType=type==="P3K"
-  ?x.inspectionBoxType:"";
+  ?x.inspectionBoxType
+  :"";
 
  const index={A:1,B:2,C:3}[boxType];
 
@@ -1403,19 +1506,29 @@ function saveInspection(type,form){
  if(type==="P3K"&&(
   !index||
   items.some(it=>
-   !Number.isInteger(it.actual)||it.actual<0
+   !Number.isInteger(it.actual)||
+   it.actual<0
   )
  )){
-  alert("Lengkapi tipe kotak dan jumlah aktual P3K.");
+  alert(
+   "Lengkapi tipe kotak dan jumlah aktual P3K."
+  );
   return;
  }
 
  const shortages=items.filter(it=>
-  it.target!==null && it.actual<it.target
+  it.target!==null&&
+  it.actual<it.target
  ).length;
 
+ // ID otomatis dengan karakter sesuai jenis dan tahun
+ const inspectionId=generateInspectionId(
+  type,
+  x.date
+ );
+
  const record={
-  id:uid(),
+  id:inspectionId,
   type,
   assetId:asset.id,
   assetCode:asset.code,
@@ -1427,34 +1540,46 @@ function saveInspection(type,form){
   notes:x.notes||"",
   checks,
   items,
-  findings:checks.filter(c=>c.result==="Tidak").length+
-   shortages,
+  findings:checks.filter(
+   c=>c.result==="Tidak"
+  ).length+shortages,
   photo:photos[type],
   createdAt:new Date().toISOString()
  };
 
  const next={
   ...db,
-  inspections:[record,...db.inspections]
+  inspections:[
+   record,
+   ...db.inspections
+  ]
  };
 
  if(save(next)){
+
   form.reset();
 
   photos[type]="";
 
   const p=type.toLowerCase();
+
   $(p+"-preview").hidden=true;
   $(p+"-preview").removeAttribute("src");
 
-  form.querySelector('[type="date"]').value=today();
+  form.querySelector('[type="date"]').value=
+   today();
 
-  if(type==="P3K")updateTargets();
+  if(type==="P3K"){
+   updateTargets();
+  }
 
   render();
   go("history");
 
-  alert("Inspeksi berhasil disimpan.");
+  alert(
+   "Inspeksi berhasil disimpan.\n\n"+
+   "ID Inspeksi: "+inspectionId
+  );
  }
 }
 
@@ -1463,25 +1588,33 @@ function saveInspection(type,form){
 ========================================== */
 
 ["APAR","P3K"].forEach(type=>{
+
  buildChecks(type);
  setupPhoto(type);
 
  const p=type.toLowerCase();
  const form=$(p+"-form");
 
- form.querySelector('[type="date"]').value=today();
+ form.querySelector('[type="date"]').value=
+  today();
 
  form.addEventListener("change",()=>{
-  const questions=type==="APAR"?APAR:P3K;
+
+  const questions=
+   type==="APAR"?APAR:P3K;
 
   questions.forEach((_,i)=>{
+
    const answer=form.querySelector(
     `input[name="check_${i}"]:checked`
    );
 
-   const note=form.elements.namedItem("note_"+i);
+   const note=form.elements.namedItem(
+    "note_"+i
+   );
 
-   note.required=answer?.value==="Tidak";
+   note.required=
+    answer?.value==="Tidak";
   });
  });
 
@@ -1494,14 +1627,26 @@ function saveInspection(type,form){
  };
 
  form.addEventListener("reset",()=>{
+
   setTimeout(()=>{
+
    photos[type]="";
+
    $(p+"-preview").hidden=true;
-   form.querySelector('[type="date"]').value=today();
-   if(type==="P3K")updateTargets();
-   form.querySelectorAll('[name^="note_"]').forEach(el=>{
+
+   form.querySelector('[type="date"]').value=
+    today();
+
+   if(type==="P3K"){
+    updateTargets();
+   }
+
+   form.querySelectorAll(
+    '[name^="note_"]'
+   ).forEach(el=>{
     el.required=false;
    });
+
   },0);
  });
 });
@@ -1513,29 +1658,50 @@ buildItems();
 ========================================== */
 
 function renderMetrics(){
+
  const findings=db.inspections.reduce(
-  (sum,i)=>sum+(Number(i.findings)||0),0
+  (sum,i)=>sum+
+   (Number(i.findings)||0),
+  0
  );
 
  const stats=[
-  ["Total APAR",
-   db.assets.filter(a=>a.type==="APAR").length],
-  ["Total P3K",
-   db.assets.filter(a=>a.type==="P3K").length],
-  ["Jumlah Inspeksi",db.inspections.length],
-  ["Total Temuan",findings]
+  [
+   "Total APAR",
+   db.assets.filter(
+    a=>a.type==="APAR"
+   ).length
+  ],
+  [
+   "Total P3K",
+   db.assets.filter(
+    a=>a.type==="P3K"
+   ).length
+  ],
+  [
+   "Jumlah Inspeksi",
+   db.inspections.length
+  ],
+  [
+   "Total Temuan",
+   findings
+  ]
  ];
 
- $("home-metrics").innerHTML=stats.map(([name,n])=>`
-  <div class="card">
-   <small>${esc(name)}</small>
-   <strong>${n}</strong>
-  </div>
- `).join("");
+ $("home-metrics").innerHTML=
+  stats.map(([name,n])=>`
+   <div class="card">
+    <small>${esc(name)}</small>
+    <strong>${n}</strong>
+   </div>
+  `).join("");
 }
 
 function renderDonut(){
- const assets=db.assets.filter(a=>a.type===statusType);
+
+ const assets=db.assets.filter(
+  a=>a.type===statusType
+ );
 
  const states=[
   ["Baik","#16a34a"],
@@ -1546,55 +1712,85 @@ function renderDonut(){
  let start=0;
  const stops=[];
 
- $("status-legend").innerHTML=states.map(([name,color])=>{
-  const n=assets.filter(a=>a.status===name).length;
-  const percent=assets.length?n/assets.length*100:0;
-  const end=start+percent;
+ $("status-legend").innerHTML=
+  states.map(([name,color])=>{
 
-  if(n){
-   stops.push(`${color} ${start}% ${end}%`);
-  }
+   const n=assets.filter(
+    a=>a.status===name
+   ).length;
 
-  start=end;
+   const percent=assets.length
+    ?n/assets.length*100
+    :0;
 
-  return `
-   <div>
-    <span>${esc(name)}</span>
-    <b>${n} unit</b>
-   </div>
-  `;
- }).join("");
+   const end=start+percent;
 
- $("asset-donut").style.background=stops.length
-  ?"conic-gradient("+stops.join(",")+")"
-  :"#ececec";
+   if(n){
+    stops.push(
+     `${color} ${start}% ${end}%`
+    );
+   }
 
- $("donut-total").textContent=assets.length;
+   start=end;
+
+   return `
+    <div>
+     <span>${esc(name)}</span>
+     <b>${n} unit</b>
+    </div>
+   `;
+  }).join("");
+
+ $("asset-donut").style.background=
+  stops.length
+   ?"conic-gradient("+stops.join(",")+")"
+   :"#ececec";
+
+ $("donut-total").textContent=
+  assets.length;
 }
 
 $("status-apar").onclick=()=>{
  statusType="APAR";
+
  $("status-apar").classList.add("primary");
  $("status-p3k").classList.remove("primary");
+
  renderDonut();
 };
 
 $("status-p3k").onclick=()=>{
  statusType="P3K";
+
  $("status-p3k").classList.add("primary");
  $("status-apar").classList.remove("primary");
+
  renderDonut();
 };
 
 function renderRecent(){
+
  $("recent-inspections").innerHTML=
   db.inspections.slice(0,5).map(i=>`
    <div style="
     border-bottom:1px solid var(--border);
     padding:12px 0">
+
     <b>Inspeksi ${esc(i.type)}</b>
-    <div>${esc(i.assetCode)} - ${esc(i.location)}</div>
-    <small class="muted">${esc(i.date)}</small>
+
+    <div>
+     <span class="id-code">${esc(i.id)}</span>
+    </div>
+
+    <div>
+     ${esc(i.assetCode)} -
+     ${esc(i.location)}
+    </div>
+
+    <small class="muted">
+     ${esc(i.date)}
+    </small>
+
    </div>
   `).join("")||
   '<p class="muted">Belum ada inspeksi.</p>';
@@ -1605,6 +1801,7 @@ function renderRecent(){
 ========================================== */
 
 function showList(scroll=true){
+
  selectedId=null;
 
  $("history-list-view").hidden=false;
@@ -1612,63 +1809,134 @@ function showList(scroll=true){
 
  renderInspections();
 
- if(scroll)window.scrollTo(0,0);
+ if(scroll){
+  window.scrollTo(0,0);
+ }
 }
 
 function renderInspections(){
+
  const type=$("inspection-filter").value;
- const query=$("inspection-search").value.toLowerCase();
+
+ const query=$("inspection-search")
+  .value.toLowerCase();
 
  const list=db.inspections.filter(i=>
   (!type||i.type===type)&&
-  [i.assetCode,i.plant,i.location,i.inspector,i.type]
-   .join(" ").toLowerCase().includes(query)
+  [
+   i.id,
+   i.assetCode,
+   i.plant,
+   i.location,
+   i.inspector,
+   i.type
+  ]
+  .join(" ")
+  .toLowerCase()
+  .includes(query)
  );
 
  $("inspection-count").textContent=
-  "Menampilkan "+list.length+
-  " dari "+db.inspections.length+" inspeksi";
+  "Menampilkan "+
+  list.length+
+  " dari "+
+  db.inspections.length+
+  " inspeksi";
 
- $("inspection-rows").innerHTML=list.map((i,n)=>`
-  <tr>
-   <td>${n+1}</td>
-   <td>${esc(i.date)}</td>
-   <td>${esc(i.type)}</td>
-   <td><b>${esc(i.assetCode)}</b></td>
-   <td>${esc(i.plant)}</td>
-   <td>${esc(i.location)}</td>
-   <td>${esc(i.inspector)}</td>
-   <td class="history-actions">
-    <button class="small-btn"
-     data-view="${esc(i.id)}">Lihat Detail</button>
-    <button class="small-btn danger"
-     data-remove="${esc(i.id)}">Hapus</button>
-   </td>
-  </tr>
- `).join("")||
- '<tr><td colspan="8">Belum ada inspeksi.</td></tr>';
+ $("inspection-rows").innerHTML=
+  list.map((i,n)=>`
+   <tr>
+
+    <td>${n+1}</td>
+
+    <td>
+     <span class="id-code">
+      ${esc(i.id)}
+     </span>
+    </td>
+
+    <td>${esc(i.date)}</td>
+
+    <td>${esc(i.type)}</td>
+
+    <td>
+     <b>${esc(i.assetCode)}</b>
+    </td>
+
+    <td>${esc(i.plant)}</td>
+
+    <td>${esc(i.location)}</td>
+
+    <td>${esc(i.inspector)}</td>
+
+    <td class="history-actions">
+
+     <button
+      class="small-btn"
+      data-view="${esc(i.id)}">
+      Lihat Detail
+     </button>
+
+     <button
+      class="small-btn danger"
+      data-remove="${esc(i.id)}">
+      Hapus
+     </button>
+
+    </td>
+
+   </tr>
+  `).join("")||
+  '<tr><td colspan="9">Belum ada inspeksi.</td></tr>';
 }
 
-$("inspection-filter").onchange=renderInspections;
-$("inspection-search").oninput=renderInspections;
+$("inspection-filter").onchange=
+ renderInspections;
 
-$("inspection-rows").addEventListener("click",e=>{
- const view=e.target.closest("[data-view]");
- const remove=e.target.closest("[data-remove]");
+$("inspection-search").oninput=
+ renderInspections;
 
- if(view)showDetail(view.dataset.view);
- if(remove)deleteInspection(remove.dataset.remove);
-});
+$("inspection-rows").addEventListener(
+ "click",
+ e=>{
+
+  const view=e.target.closest(
+   "[data-view]"
+  );
+
+  const remove=e.target.closest(
+   "[data-remove]"
+  );
+
+  if(view){
+   showDetail(view.dataset.view);
+  }
+
+  if(remove){
+   deleteInspection(
+    remove.dataset.remove
+   );
+  }
+
+ }
+);
 
 function deleteInspection(id){
- if(!confirm("Hapus hasil inspeksi ini?"))return;
+
+ if(!confirm(
+  "Hapus hasil inspeksi ini?"
+ ))return;
 
  const next={
   ...db,
-  inspections:db.inspections.filter(i=>i.id!==id)
+  inspections:db.inspections.filter(
+   i=>i.id!==id
+  )
  };
 
- if(save(next))render();
+ if(save(next)){
+  render();
+ }
 }
 
 /* ==========================================
@@ -1676,6 +1944,7 @@ function deleteInspection(id){
 ========================================== */
 
 function info(label,value){
+
  return `
   <div>
    <small>${esc(label)}</small>
@@ -1685,9 +1954,11 @@ function info(label,value){
 }
 
 function detailMarkup(i){
+
  const asset=assetBy(i.assetId);
 
  const fields=[
+  ["ID Inspeksi",i.id],
   ["Tanggal Inspeksi",i.date],
   ["Jenis Inspeksi",i.type],
   ["Kode Aset",i.assetCode],
@@ -1697,26 +1968,31 @@ function detailMarkup(i){
  ];
 
  if(i.type==="APAR"){
+
   fields.push(
    ["Jenis Media",asset?.media||"-"],
    ["Kapasitas APAR",asset?.capacity||"-"]
   );
+
  }else{
+
   fields.push([
    "Tipe Kotak P3K",
    i.boxType||asset?.boxType||"-"
   ]);
+
  }
 
- const checks=(i.checks||[]).map((c,n)=>`
-  <tr>
-   <td>${n+1}</td>
-   <td>${esc(c.code||"-")}</td>
-   <td>${esc(c.question||"-")}</td>
-   <td>${esc(c.result||"-")}</td>
-   <td>${esc(c.note||"-")}</td>
-  </tr>
- `).join("");
+ const checks=(i.checks||[])
+  .map((c,n)=>`
+   <tr>
+    <td>${n+1}</td>
+    <td>${esc(c.code||"-")}</td>
+    <td>${esc(c.question||"-")}</td>
+    <td>${esc(c.result||"-")}</td>
+    <td>${esc(c.note||"-")}</td>
+   </tr>
+  `).join("");
 
  const items=i.type==="P3K"?`
   <h3 class="section-title">
@@ -1752,11 +2028,18 @@ function detailMarkup(i){
 
  return `
   <h2>
-   Hasil Inspeksi ${esc(i.type)} — ${esc(i.assetCode)}
+   Hasil Inspeksi ${esc(i.type)}
   </h2>
 
+  <p>
+   <span class="id-code">
+    ${esc(i.id)}
+   </span>
+  </p>
+
   <p class="muted">
-   Hasil pemeriksaan lengkap yang telah disimpan.
+   Hasil pemeriksaan lengkap
+   yang telah disimpan.
   </p>
 
   <h3 class="section-title">
@@ -1764,7 +2047,9 @@ function detailMarkup(i){
   </h3>
 
   <div class="detail-info">
-   ${fields.map(x=>info(x[0],x[1])).join("")}
+   ${fields.map(
+    x=>info(x[0],x[1])
+   ).join("")}
   </div>
 
   <h3 class="section-title">
@@ -1783,14 +2068,17 @@ function detailMarkup(i){
      </tr>
     </thead>
 
-    <tbody>${checks}</tbody>
+    <tbody>
+     ${checks}
+    </tbody>
    </table>
   </div>
 
   ${items}
 
   <h3 class="section-title">
-   ${i.type==="P3K"?"D":"C"}. Catatan / Tindak Lanjut
+   ${i.type==="P3K"?"D":"C"}.
+   Catatan / Tindak Lanjut
   </h3>
 
   <div class="detail-note">
@@ -1798,39 +2086,53 @@ function detailMarkup(i){
   </div>
 
   <h3 class="section-title">
-   ${i.type==="P3K"?"E":"D"}. Dokumentasi
+   ${i.type==="P3K"?"E":"D"}.
+   Dokumentasi
   </h3>
 
-  ${safePhoto(i.photo)
-   ?`<img class="detail-photo"
-       src="${safePhoto(i.photo)}"
-       alt="Foto Inspeksi">`
+  ${
+   safePhoto(i.photo)
+   ?`
+    <img
+     class="detail-photo"
+     src="${safePhoto(i.photo)}"
+     alt="Foto Inspeksi">
+   `
    :'<p class="muted">Tidak ada foto dokumentasi.</p>'
   }
  `;
 }
 
 function showDetail(id){
+
  const i=inspectionBy(id);
 
  if(!i){
-  alert("Hasil inspeksi tidak ditemukan.");
+  alert(
+   "Hasil inspeksi tidak ditemukan."
+  );
   return;
  }
 
  selectedId=id;
 
- $("inspection-detail").innerHTML=detailMarkup(i);
+ $("inspection-detail").innerHTML=
+  detailMarkup(i);
+
  $("history-list-view").hidden=true;
  $("history-detail-view").hidden=false;
 
  window.scrollTo(0,0);
 }
 
-$("back-to-history").onclick=()=>showList();
+$("back-to-history").onclick=()=>{
+ showList();
+};
 
 $("print-detail").onclick=()=>{
- if(selectedId)printInspection(selectedId);
+ if(selectedId){
+  printInspection(selectedId);
+ }
 };
 
 /* ==========================================
@@ -1838,79 +2140,151 @@ $("print-detail").onclick=()=>{
 ========================================== */
 
 function printInspection(id){
+
  const i=inspectionBy(id);
+
  if(!i)return;
 
  const w=window.open("","_blank");
 
  if(!w){
-  alert("Izinkan pop-up browser untuk mencetak PDF.");
+  alert(
+   "Izinkan pop-up browser untuk mencetak PDF."
+  );
   return;
  }
 
  const body=detailMarkup(i);
 
  w.document.open();
+
  w.document.write(`
- <!DOCTYPE html>
- <html lang="id">
- <head>
- <meta charset="UTF-8">
- <title>Inspeksi ${esc(i.type)} - ${esc(i.assetCode)}</title>
+  <!DOCTYPE html>
+  <html lang="id">
 
- <style>
- @page{size:A4;margin:14mm}
- body{font:11px/1.45 Arial,sans-serif;color:#2e2528}
- h1{text-align:center;font-size:17px}
- h2{font-size:16px}
- h3{font-size:12px;margin-top:18px}
- table{
-  width:100%;border-collapse:collapse;margin:10px 0
- }
- th,td{
-  border:1px solid #bbb;padding:7px;
-  text-align:left;vertical-align:top;
-  overflow-wrap:anywhere
- }
- th{background:#f3e8ea}
- tr{break-inside:avoid}
- .detail-info{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px
- }
- .detail-info>div{
-  border:1px solid #ddd;padding:8px
- }
- .detail-info small{display:block;color:#666}
- .detail-note{white-space:pre-wrap}
- .detail-photo{max-width:100%;max-height:320px}
- .controls{
-  text-align:center;margin-bottom:20px;
-  padding:10px;background:#f4e8ea
- }
- @media print{
-  .controls{display:none}
- }
- </style>
- </head>
+  <head>
+   <meta charset="UTF-8">
 
- <body>
- <div class="controls">
-  <button onclick="window.print()">
-   Cetak / Simpan PDF
-  </button>
- </div>
+   <title>
+    ${esc(i.id)} - Inspeksi ${esc(i.type)}
+   </title>
 
- <h1>
-  LAPORAN HASIL INSPEKSI APAR & P3K
-  <div>PT SOLUSI PRIMA PACKAGING</div>
- </h1>
+   <style>
+    @page{
+     size:A4;
+     margin:14mm;
+    }
 
- ${body}
+    body{
+     font:11px/1.45 Arial,sans-serif;
+     color:#2e2528;
+    }
 
- </body>
- </html>
+    h1{
+     text-align:center;
+     font-size:17px;
+    }
+
+    h2{
+     font-size:16px;
+    }
+
+    h3{
+     font-size:12px;
+     margin-top:18px;
+    }
+
+    table{
+     width:100%;
+     border-collapse:collapse;
+     margin:10px 0;
+    }
+
+    th,td{
+     border:1px solid #bbb;
+     padding:7px;
+     text-align:left;
+     vertical-align:top;
+     overflow-wrap:anywhere;
+    }
+
+    th{
+     background:#f3e8ea;
+    }
+
+    tr{
+     break-inside:avoid;
+    }
+
+    .detail-info{
+     display:grid;
+     grid-template-columns:repeat(3,1fr);
+     gap:8px;
+    }
+
+    .detail-info>div{
+     border:1px solid #ddd;
+     padding:8px;
+    }
+
+    .detail-info small{
+     display:block;
+     color:#666;
+    }
+
+    .detail-note{
+     white-space:pre-wrap;
+    }
+
+    .detail-photo{
+     max-width:100%;
+     max-height:320px;
+    }
+
+    .id-code{
+     display:inline-block;
+     font-weight:bold;
+     font-family:Consolas,monospace;
+     padding:4px;
+     background:#f6e6e9;
+    }
+
+    .controls{
+     text-align:center;
+     margin-bottom:20px;
+     padding:10px;
+     background:#f4e8ea;
+    }
+
+    @media print{
+     .controls{
+      display:none;
+     }
+    }
+   </style>
+  </head>
+
+  <body>
+
+   <div class="controls">
+    <button onclick="window.print()">
+     Cetak / Simpan PDF
+    </button>
+   </div>
+
+   <h1>
+    LAPORAN HASIL INSPEKSI
+    ${esc(i.type)}
+
+    <div>
+     PT SOLUSI PRIMA PACKAGING
+    </div>
+   </h1>
+
+   ${body}
+
+  </body>
+  </html>
  `);
 
  w.document.close();
@@ -1921,8 +2295,14 @@ function printInspection(id){
 ========================================== */
 
 function download(name,content,mime){
- const blob=new Blob([content],{type:mime});
+
+ const blob=new Blob(
+  [content],
+  {type:mime}
+ );
+
  const url=URL.createObjectURL(blob);
+
  const a=document.createElement("a");
 
  a.href=url;
@@ -1932,13 +2312,15 @@ function download(name,content,mime){
  a.click();
  a.remove();
 
- setTimeout(()=>URL.revokeObjectURL(url),5000);
+ setTimeout(()=>{
+  URL.revokeObjectURL(url);
+ },5000);
 }
 
 function csvSafe(value){
+
  let s=String(value??"");
 
- // Hindari eksekusi formula oleh spreadsheet
  if(/^\s*[=+@-]/.test(s)){
   s="'"+s;
  }
@@ -1947,19 +2329,22 @@ function csvSafe(value){
 }
 
 /*
-  FORMAT REKAP:
-  1 INSPEKSI = 1 BARIS
+ FORMAT REKAP:
 
-  KOLOM IDENTITAS
-  + SELURUH CHECKLIST APAR
-  + SELURUH CHECKLIST P3K
-  + 18 ITEM P3K
-  + CATATAN
+ 1 INSPEKSI = 1 BARIS
 
-  TANPA JUMLAH TEMUAN
+ KOLOM IDENTITAS
+ + ID INSPEKSI
+ + CHECKLIST APAR
+ + CHECKLIST P3K
+ + 18 ITEM P3K
+ + CATATAN
+
+ TANPA KOLOM JUMLAH TEMUAN
 */
 
 $("export-csv").onclick=()=>{
+
  if(!db.inspections.length){
   alert("Belum ada data inspeksi.");
   return;
@@ -2003,63 +2388,69 @@ $("export-csv").onclick=()=>{
   );
  }
 
- const rows=db.inspections.map((i,index)=>{
-  const row=[
-   index+1,
-   i.id,
-   i.date,
-   i.type,
-   i.assetCode,
-   i.plant,
-   i.location,
-   i.inspector,
-   i.boxType||"",
-   i.notes||""
-  ];
+ const rows=db.inspections.map(
+  (i,index)=>{
 
-  for(let n=0;n<6;n++){
-   const c=i.type==="APAR"
-    ?i.checks?.[n]
-    :null;
+   const row=[
+    index+1,
+    i.id,
+    i.date,
+    i.type,
+    i.assetCode,
+    i.plant,
+    i.location,
+    i.inspector,
+    i.boxType||"",
+    i.notes||""
+   ];
 
-   row.push(
-    c?.question||"",
-    c?.result||"",
-    c?.note||""
-   );
+   for(let n=0;n<6;n++){
+
+    const c=i.type==="APAR"
+     ?i.checks?.[n]
+     :null;
+
+    row.push(
+     c?.question||"",
+     c?.result||"",
+     c?.note||""
+    );
+   }
+
+   for(let n=0;n<5;n++){
+
+    const c=i.type==="P3K"
+     ?i.checks?.[n]
+     :null;
+
+    row.push(
+     c?.question||"",
+     c?.result||"",
+     c?.note||""
+    );
+   }
+
+   for(let n=0;n<18;n++){
+
+    const item=i.type==="P3K"
+     ?i.items?.[n]
+     :null;
+
+    row.push(
+     item?.name||"",
+     item?.target??"",
+     item?.actual??"",
+     item?.note||""
+    );
+   }
+
+   return row;
   }
-
-  for(let n=0;n<5;n++){
-   const c=i.type==="P3K"
-    ?i.checks?.[n]
-    :null;
-
-   row.push(
-    c?.question||"",
-    c?.result||"",
-    c?.note||""
-   );
-  }
-
-  for(let n=0;n<18;n++){
-   const item=i.type==="P3K"
-    ?i.items?.[n]
-    :null;
-
-   row.push(
-    item?.name||"",
-    item?.target??"",
-    item?.actual??"",
-    item?.note||""
-   );
-  }
-
-  return row;
- });
+ );
 
  const content="\ufeff"+
-  [headers,...rows].map(r=>
-   r.map(csvSafe).join(";")
+  [headers,...rows].map(row=>
+   row.map(csvSafe).join(";")
   ).join("\r\n");
 
  download(
@@ -2075,8 +2466,10 @@ $("export-csv").onclick=()=>{
 ========================================== */
 
 $("export-json").onclick=()=>{
+
  const backup={
   application:"SOPRA APAR P3K",
+  version:7,
   exportedAt:new Date().toISOString(),
   ...db
  };
@@ -2097,29 +2490,40 @@ $("import-json").onclick=()=>{
 };
 
 $("import-file").onchange=async e=>{
+
  const file=e.target.files?.[0];
+
  if(!file)return;
 
  try{
+
   if(file.size>15*1024*1024){
-   throw Error("Ukuran file terlalu besar.");
+   throw Error(
+    "Ukuran file terlalu besar."
+   );
   }
 
-  const imported=JSON.parse(await file.text());
+  const imported=JSON.parse(
+   await file.text()
+  );
 
   if(
    imported.application!=="SOPRA APAR P3K"||
    !Array.isArray(imported.assets)||
    !Array.isArray(imported.inspections)
   ){
-   throw Error("Format backup tidak sesuai.");
+   throw Error(
+    "Format backup tidak sesuai."
+   );
   }
 
   if(
    imported.assets.length>10000||
    imported.inspections.length>30000
   ){
-   throw Error("Jumlah data terlalu besar.");
+   throw Error(
+    "Jumlah data terlalu besar."
+   );
   }
 
   if(
@@ -2136,12 +2540,16 @@ $("import-file").onchange=async e=>{
     !Array.isArray(i.checks)
    )
   ){
-   throw Error("Struktur data tidak valid.");
+   throw Error(
+    "Struktur data tidak valid."
+   );
   }
 
   if(!confirm(
    "Gabungkan data backup dengan data browser?"
-  ))return;
+  )){
+   return;
+  }
 
   const assets=new Map(
    db.assets.map(a=>[a.id,a])
@@ -2167,11 +2575,18 @@ $("import-file").onchange=async e=>{
   if(save(next)){
    showList(false);
    render();
-   alert("Backup berhasil diimpor.");
+
+   alert(
+    "Backup berhasil diimpor."
+   );
   }
 
  }catch(error){
-  alert("Gagal impor: "+error.message);
+
+  alert(
+   "Gagal impor: "+error.message
+  );
+
  }finally{
   e.target.value="";
  }
@@ -2182,11 +2597,14 @@ $("import-file").onchange=async e=>{
 ========================================== */
 
 function render(){
+
  refreshAssets();
  renderInventory();
+
  renderMetrics();
  renderDonut();
  renderRecent();
+
  renderInspections();
 }
 
@@ -2195,9 +2613,12 @@ function render(){
 ========================================== */
 
 load();
+
 syncType();
 updateTargets();
+
 render();
+
 go("home");
 
 })();
